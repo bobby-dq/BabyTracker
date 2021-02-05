@@ -19,8 +19,8 @@ A web application that you can use to track your newborn's bowel, eating, and sl
     dotnet run
 
     
-
-*### The following commands were ran for initializing the project, not necessary to run this commands when you clone/pull the project.*
+## Project Initialization
+*The following commands were ran for initializing the project, not necessary to run this commands when you clone/pull the project.*
 
 ## Install required NuGet Packages
 ### Enter the following commands within the BabyTracker project folder
