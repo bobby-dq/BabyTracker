@@ -10,11 +10,14 @@ namespace BabyTracker.Models
     public class Infant
     {
         public long InfantId { get; set; }
-        [Required(ErrorMessage = "First name is required.")]
-        [MaxLength(Length:)]
+        
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Dob { get; set; }
-
+        public IEnumerable<Feeding> Feedings {get;set;}
+        public IEnumerable<Growth> Growths {get; set;}
+        public IEnumerable<Medication> Medications {get; set;}
+        public IEnumerable<Sleep> Sleeps {get; set;}
+        public IEnumerable<Diaper> Diapers {get; set;}
     }
 }

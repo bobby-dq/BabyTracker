@@ -7,5 +7,17 @@ namespace BabyTracker.Models
 {
     public class Feeding
     {
+        public long FeedingId {get; set;}
+        public FeedingEnum FeedType {get; set;}
+        public string Description {get; set;}
+        public string Comments {get; set;}
+        public DateTime StartTime{get; set;}
+        public long Amount{ get; set;}
+        public long Duration {get; set;}
+
+        // Foreign key data
+        public long InfantId {get; set;}
+        public Infant Infant {get; set;}
+
     }
 }

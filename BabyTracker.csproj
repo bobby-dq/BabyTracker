@@ -14,4 +14,8 @@
     <PackageReference Include="Westwind.AspNetCore.LiveReload" Version="0.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
