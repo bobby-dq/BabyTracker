@@ -4,13 +4,13 @@ namespace BabyTracker.Models
     {
         Poo, Pee, PeeAndPoo
     }
-    public enum FeedingEnum
+    public enum FeedEnum
     {
-        LeftBreast, RightBreast, Meal, Bottle, Other
+        LeftBreast, RightBreast, Meal, Bottle
     }
     public enum MedicationEnum
     {
-        Medicine, Vaccination, Other
+        Medicine, Vaccination
     }
     public enum GrowthEnum
     {

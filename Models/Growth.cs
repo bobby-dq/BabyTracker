@@ -9,7 +9,7 @@ namespace BabyTracker.Models
     {
         public long GrowthId {get; set;}
         public GrowthEnum GrowthType {get; set;}
-        public long Amount {get; set;}
+        public decimal Amount {get; set;}
         public string Description {get; set;}
         public string Comments {get; set;}
         public DateTime Date {get; set;}

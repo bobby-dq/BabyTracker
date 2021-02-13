@@ -7,7 +7,7 @@ namespace BabyTracker.Models
 {
     public class Diaper
     {
-        public long DiaperId {get; set;}
+        public decimal DiaperId {get; set;}
         public DiaperEnum DiaperType{get; set;}
         public string Description {get; set;}
         public string Comments {get; set;}
