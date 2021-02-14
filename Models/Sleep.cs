@@ -11,7 +11,7 @@ namespace BabyTracker.Models
         public DateTime StartTime {get; set;}
         public DateTime EndTime {get; set;}
         public string Description {get; set;}
-        public string Comment {get; set;}
+        public string Comments {get; set;}
 
         // Foreign key data
         public long InfantId {get; set;}
