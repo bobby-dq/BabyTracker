@@ -21,8 +21,10 @@ namespace BabyTracker.Migrations
 
             modelBuilder.Entity("BabyTracker.Models.Diaper", b =>
                 {
-                    b.Property<decimal>("DiaperId")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<long>("DiaperId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");

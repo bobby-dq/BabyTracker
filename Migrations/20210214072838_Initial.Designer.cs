@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BabyTracker.Migrations
 {
     [DbContext(typeof(BabyTrackerContext))]
-    [Migration("20210214023040_Initial")]
+    [Migration("20210214072838_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,8 +23,10 @@ namespace BabyTracker.Migrations
 
             modelBuilder.Entity("BabyTracker.Models.Diaper", b =>
                 {
-                    b.Property<decimal>("DiaperId")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<long>("DiaperId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");

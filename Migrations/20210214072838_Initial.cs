@@ -26,7 +26,8 @@ namespace BabyTracker.Migrations
                 name: "Diapers",
                 columns: table => new
                 {
-                    DiaperId = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DiaperId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DiaperType = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),

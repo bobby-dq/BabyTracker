@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Feeding>
+@{
+    Layout = "_Layout";
+
+}
+
+<h4 class="lg:w-2/3 w-full mx-auto overflow-auto">Feeding</h4>
+<table class="table-auto w-full text-left whitespace-no-wrap">
+    <thead>
+        <tr>
+            <th>FeedType</th>
+            <th>Description</th>
+            <th>Comments</th>
+            <th>Starttime</th>
+            <th>Amount</th>
+            <th>Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Feeding f in Model)
+        {
+            <tr>
+                <td>@f.FeedType</td>
+                <td>@f.Description</td>
+                <td>@f.Comments</td>
+                <td>@f.StartTime</td>
+                <td>@f.Amount</td>
+                <td>@f.Duration</td>
+                <td class="text-center">
+                    <a asp-action="Details" asp-route-id="@f.FeedingId">Details</a>
+                    <a asp-action="Edit" asp-route-id="@f.FeedingId">Details</a>
+                    <a asp-action="Delete" asp-route-id="@f.FeedingId">Delete</a>
+                </td>
+            </tr> 
+        }
+    </tbody>
+</table>
+<a asp-action="Create">Create</a>

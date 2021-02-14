@@ -1,6 +1,7 @@
 # Welcome to the Baby Tracker App
 A web application that you can use to track your newborn's bowel, eating, and sleeping habits.
 ## News and Updates
+    13-Feb-2020 "Migrated the database seed data and initialized the database connection string."
     12-Feb-2020 "Added the models Diaper, Feeding, Growth, Infant, Medication (no validations yet)"
     03-Feb-2020 "Initialized the project."
 
