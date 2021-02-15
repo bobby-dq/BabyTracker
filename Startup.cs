@@ -31,18 +31,19 @@ namespace BabyTracker
                 opts.EnableSensitiveDataLogging(true);
             });
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddMvc().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, BabyTrackerContext context)
         {
+            app.UseStaticFiles();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

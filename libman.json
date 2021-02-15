@@ -5,6 +5,10 @@
     {
       "library": "tailwindcss@2.0.3",
       "destination": "wwwroot/lib/tailwindcss/"
+    },
+    {
+      "library": "twitter-bootstrap@4.6.0",
+      "destination": "wwwroot/lib/twitter-bootstrap/"
     }
   ]
 }

@@ -4,10 +4,11 @@
 
 }
 
-<h4 class="lg:w-2/3 w-full mx-auto overflow-auto">Feeding</h4>
-<table class="table-auto w-full text-left whitespace-no-wrap">
+<h4 class="m-2 p-2 text-center bg-info">Feeding</h4>
+<table class="table table-sm table-striped">
     <thead>
         <tr>
+            <th>Infant</th>
             <th>FeedType</th>
             <th>Description</th>
             <th>Comments</th>
@@ -20,6 +21,7 @@
         @foreach (Feeding f in Model)
         {
             <tr>
+                <td>@f.Infant.FirstName</td>
                 <td>@f.FeedType</td>
                 <td>@f.Description</td>
                 <td>@f.Comments</td>
