@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,17 +11,16 @@ using BabyTracker.Models.ViewModelFactories;
 
 namespace BabyTracker.Controllers
 {
-    [AutoValidateAntiforgeryToken]
-    public class FeedingController:Controller
+    public class InfantController: Controller
     {
         private IBabyTrackerRepository context;
-        public FeedingController(IBabyTrackerRepository ctx)
+        public InfantController(IBabyTrackerRepository ctx)
         {
             context = ctx;
         }
-        public IActionResult Index(long id)
+        public IActionResult Index()
         {
-            return View(context.Feedings.Include(f => f.Infant).Where(f => f.InfantId == id).Select(f => f));
+            return View(context.Infants);
         }
     }
 }

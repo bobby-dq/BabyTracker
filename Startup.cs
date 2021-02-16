@@ -10,6 +10,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using BabyTracker.Models;
+using BabyTracker.Models.ViewModels;
+using BabyTracker.Models.RepositoryModels;
+using BabyTracker.Models.ViewModelFactories;
 
 namespace BabyTracker
 {
@@ -33,28 +36,27 @@ namespace BabyTracker
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddMvc().AddRazorRuntimeCompilation();
+            services.AddScoped<IBabyTrackerRepository, EfBabyTrackerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, BabyTrackerContext context)
         {
+            app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseStatusCodePages();
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapControllerRoute("defautlt", "{controller=Home}/{action=Home}/{id?}");
-                endpoints.MapGet("/", async context =>
+                endpoints.MapControllerRoute("default", "{controller=Infant}/{action=Index}/{id?}");
+                endpoints.MapGet("/infant/", async context =>
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
             });
 
-            SeedData.SeedDatabase(context);
+            SeedData.EnsurePopulated(app);
         }
     }
 }

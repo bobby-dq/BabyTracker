@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace BabyTracker.Models
+namespace BabyTracker.Models.RepositoryModels
 {
     public class BabyTrackerContext: DbContext
     {

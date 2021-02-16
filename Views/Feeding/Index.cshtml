@@ -1,10 +1,8 @@
 ﻿@model IEnumerable<Feeding>
-@{
-    Layout = "_Layout";
 
-}
-
-<h4 class="m-2 p-2 text-center bg-info">Feeding</h4>
+<h4 class="text-center bg-info">Feeding</h4>
+<div class="table-responsive">
+    
 <table class="table table-sm table-striped">
     <thead>
         <tr>
@@ -29,12 +27,13 @@
                 <td>@f.Amount</td>
                 <td>@f.Duration</td>
                 <td class="text-center">
-                    <a asp-action="Details" asp-route-id="@f.FeedingId">Details</a>
-                    <a asp-action="Edit" asp-route-id="@f.FeedingId">Details</a>
-                    <a asp-action="Delete" asp-route-id="@f.FeedingId">Delete</a>
+                    <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@f.FeedingId">Details</a>
+                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@f.FeedingId">Edit</a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@f.FeedingId">Delete</a>
                 </td>
             </tr> 
         }
     </tbody>
 </table>
+</div>
 <a asp-action="Create">Create</a>

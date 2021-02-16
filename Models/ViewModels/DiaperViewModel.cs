@@ -1,6 +1,6 @@
 namespace BabyTracker.Models.ViewModels
 {
-    public class InfantViewModel
+    public class DiaperViewModel
     {
         
     }
