@@ -7,10 +7,10 @@
     <thead>
         <tr>
             <th>Infant</th>
-            <th>FeedType</th>
+            <th>Feed Type</th>
             <th>Description</th>
             <th>Comments</th>
-            <th>Starttime</th>
+            <th>Start Time</th>
             <th>Amount</th>
             <th>Duration</th>
         </tr>
@@ -20,7 +20,7 @@
         {
             <tr>
                 <td>@f.Infant.FirstName</td>
-                <td>@f.FeedType</td>
+                <td>@f.FeedType.GetDescription()</td>
                 <td>@f.Description</td>
                 <td>@f.Comments</td>
                 <td>@f.StartTime</td>

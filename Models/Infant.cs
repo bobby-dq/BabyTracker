@@ -10,10 +10,31 @@ namespace BabyTracker.Models
     public class Infant
     {
         public long InfantId { get; set; }
-        
+
+
+
+        [Required(ErrorMessage="Please enter a first name.")]
+        [StringLength(32, ErrorMessage="The {0} field cannot exceed more than 32 characters.")]
+        [Display(Name="First Name")]
         public string FirstName { get; set; }
+
+
+
+
+        [StringLength(32, ErrorMessage="The {0} field cannot exceed more than 32 characters.")]
+        [Display(Name="Last Name")]
         public string LastName { get; set; }
+
+
+
+        [Required(ErrorMessage="Please enter a date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode=true, DataFormatString="{0: dd-MMM-yyyy}")]
         public DateTime Dob { get; set; }
+
+
+
+        // Foreign key data
         public IEnumerable<Feeding> Feedings {get;set;}
         public IEnumerable<Growth> Growths {get; set;}
         public IEnumerable<Medication> Medications {get; set;}

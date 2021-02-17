@@ -13,8 +13,8 @@ namespace BabyTracker.Migrations
                 {
                     InfantId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
                     Dob = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -29,8 +29,8 @@ namespace BabyTracker.Migrations
                     DiaperId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DiaperType = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    Comments = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
                     Time = table.Column<DateTime>(type: "datetime2", nullable: false),
                     InfantId = table.Column<long>(type: "bigint", nullable: false)
                 },
@@ -52,11 +52,11 @@ namespace BabyTracker.Migrations
                     FeedingId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FeedType = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    Comments = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Duration = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
+                    Duration = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
                     InfantId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -77,9 +77,9 @@ namespace BabyTracker.Migrations
                     GrowthId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GrowthType = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Amount = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    Comments = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     InfantId = table.Column<long>(type: "bigint", nullable: false)
                 },
@@ -102,8 +102,8 @@ namespace BabyTracker.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MedicationType = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Comments = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
                     InfantId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -125,8 +125,8 @@ namespace BabyTracker.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    Comments = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
                     InfantId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
