@@ -9,9 +9,9 @@ namespace BabyTracker.Models.RepositoryModels
     public static class SeedData
     {
 
-        public static void EnsurePopulated(IApplicationBuilder app)
+        public static void SeedDatabase(BabyTrackerContext ctx)
             {
-                BabyTrackerContext context = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<BabyTrackerContext>();
+                BabyTrackerContext context = ctx;
 
                 if (context.Database.GetPendingMigrations().Any())
                 {

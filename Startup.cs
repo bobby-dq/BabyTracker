@@ -36,7 +36,7 @@ namespace BabyTracker
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddMvc().AddRazorRuntimeCompilation();
-            services.AddScoped<IBabyTrackerRepository, EfBabyTrackerRepository>();
+            // services.AddScoped<IBabyTrackerRepository, EfBabyTrackerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +56,7 @@ namespace BabyTracker
                 });
             });
 
-            SeedData.EnsurePopulated(app);
+            SeedData.SeedDatabase(context);
         }
     }
 }

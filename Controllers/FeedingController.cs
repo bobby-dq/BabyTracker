@@ -14,8 +14,8 @@ namespace BabyTracker.Controllers
     [AutoValidateAntiforgeryToken]
     public class FeedingController:Controller
     {
-        private IBabyTrackerRepository context;
-        public FeedingController(IBabyTrackerRepository ctx)
+        private BabyTrackerContext context;
+        public FeedingController(BabyTrackerContext ctx)
         {
             context = ctx;
         }

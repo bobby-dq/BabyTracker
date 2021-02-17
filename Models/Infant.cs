@@ -29,7 +29,6 @@ namespace BabyTracker.Models
 
         [Required(ErrorMessage="Please enter a date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode=true, DataFormatString="{0: dd-MMM-yyyy}")]
         public DateTime Dob { get; set; }
 
 

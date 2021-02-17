@@ -1,9 +1,56 @@
 @model InfantViewModel
 
+<!-- 
+    Bind the following properties
+        FirstName
+        LastName
+        Dob
+-->
+ 
 <partial name="_Validation"/>
 
 <h5 class="bg-@Model.Theme" text-white text-center p-2>@Model.Action</h5>
 
 <form asp-action="@Model.Action" method="post">
+    <div class="form-group">
+        <label asp-for="Infant.FirstName"></label>
+        <div>
+            <span asp-validation-for="Infant.FirstName" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Infant.FirstName" readonly="@Model.ReadOnly"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Infant.LastName"></label>
+        <div>
+            <span asp-validation-for="Infant.LastName" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Infant.LastName" readonly="@Model.ReadOnly"/>
+    </div>
+    @if(Model.ReadOnly)
+    {
+        <div class="form-group">
+            <label asp-for="Infant.Dob"></label>
+            <div>
+                <span asp-validation-for="Infant.Dob" class="text-danger"></span>
+            </div>
+            <div class="form-control">@Model.Infant.Dob.ToString("dddd dd-MMMM-yyyy")</div>
+            <input type="hidden" class="form-control" asp-for="Infant.Dob" readonly="@Model.ReadOnly"/>
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <label asp-for="Infant.Dob"></label>
+            <div>
+                <span asp-validation-for="Infant.Dob" class="text-danger"></span>
+            </div>
+            <input class="form-control" asp-for="Infant.Dob" readonly="@Model.ReadOnly"/>
+        </div>
+    }
     
+    @if (Model.ShowAction)
+    {
+        <button class="btn btn-@Model.Theme" type="submit">@Model.Action</button>
+    }
+    <a class="btn btn-secondary" asp-action="Index">Back</a>
 </form>
