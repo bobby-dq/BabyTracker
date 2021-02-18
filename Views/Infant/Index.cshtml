@@ -14,7 +14,7 @@
             {
                 <tr>
                     <td>@i.FirstName @i.LastName</td>
-                    <td>@i.Dob</td>
+                    <td>@i.Dob.ToString("ddd MMMM dd yyyy")</td>
                     <td class="text-center">
                         <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@i.InfantId">Details</a>
                         <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@i.InfantId">Edit</a>

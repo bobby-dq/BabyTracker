@@ -9,9 +9,15 @@
  
 <partial name="_Validation"/>
 
-<h5 class="bg-@Model.Theme" text-white text-center p-2>@Model.Action</h5>
+<h5 class="bg-@Model.Theme text-white text-center p-2" >@Model.Action</h5>
 
 <form asp-action="@Model.Action" method="post">
+    <div class="form-group">
+        <div>
+            <span asp-validation-for="Infant.InfantId" class="text-danger"></span>
+        </div>
+        <input type="hidden" class="form-control" asp-for="Infant.InfantId" readonly/>
+    </div>
     <div class="form-group">
         <label asp-for="Infant.FirstName"></label>
         <div>

@@ -31,14 +31,14 @@ namespace BabyTracker.Controllers
             return View("InfantEditor", model);
         }
 
-        // HttpGet
+        // HTTP GET
         public IActionResult Create()
         {
-            return View("InfantEditor", InfantViewModelFactory.Create(new Infant()));
+            return View("InfantEditor", InfantViewModelFactory.Create(new Infant{Dob=DateTime.Now}));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("FirstName", "LastName", "Dob")] Infant infant)
+        public async Task<IActionResult> Create([FromForm] Infant infant)
         {
             if (ModelState.IsValid)
             {
@@ -49,5 +49,42 @@ namespace BabyTracker.Controllers
             }
             return View("InfantEditor", InfantViewModelFactory.Create(infant));
         }
+
+        // HTTP GET
+        public async Task<IActionResult> Edit (long id)
+        {
+            Infant infant = await context.Infants.FindAsync(id);
+            InfantViewModel model = InfantViewModelFactory.Edit(infant);
+            return View("InfantEditor", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit ([FromForm]Infant infant)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Infants.Update(infant);
+                await context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View("InfantEditor", InfantViewModelFactory.Edit(infant));
+        }
+
+        // HTTP GET
+        public async Task<IActionResult> Delete (long id)
+        {
+            Infant infant = await context.Infants.FindAsync(id);
+            InfantViewModel model = InfantViewModelFactory.Delete(infant);
+            return View("InfantEditor", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Infant infant)
+        {
+            context.Infants.Remove(infant);
+            await context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
     }
 }
