@@ -1,0 +1,32 @@
+@model IEnumerable<Diaper>
+
+<h4 class="text-center bg-info p-2">@ViewData["InfantName"] Diapers</h4>
+<div>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>Diaper Type</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Diaper d in Model)
+            {
+                <tr>
+                    <td>@d.DiaperType.GetDescription()</td>
+                    <td>@d.Time.ToString("HH:mm ddd dd MMM yyyy")</td>
+                    <td class="text-center">
+                        <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@d.DiaperId">Details</a>
+                        <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@d.DiaperId">Edit</a>
+                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@d.DiaperId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a class="btn btn-sm btn-primary" asp-controller="Infant" asp-action="Index">Back</a>
+    <a class="btn btn-sm btn-primary" asp-action="Create" asp-route-id="@ViewBag.Id">Create</a>
+</div>
+

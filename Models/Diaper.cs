@@ -16,7 +16,6 @@ namespace BabyTracker.Models
 
         [Required(ErrorMessage="Please select a diaper type.")]
         [Display(Name="Diaper Type")]
-        
         public DiaperEnum DiaperType{get; set;}
 
 
@@ -33,8 +32,8 @@ namespace BabyTracker.Models
         
         [Required(ErrorMessage="Please enter a date and time.")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(ApplyFormatInEditMode=true, DataFormatString="{0:HH:mm ddd, dd-MMM-yyyy}")]
-        public DateTime Time {get; set;}
+        [DisplayFormat(DataFormatString="{0: ddd dd MMM yyyy HH:mm}")]
+        public DateTime Time {get; set;} = DateTime.Now;
 
 
 

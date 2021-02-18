@@ -50,12 +50,7 @@ namespace BabyTracker
             {
                 endpoints.MapControllers();
                 endpoints.MapControllerRoute("default", "{controller=Infant}/{action=Index}/{id?}");
-                endpoints.MapGet("/infant/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
             });
-
             SeedData.SeedDatabase(context);
         }
     }
