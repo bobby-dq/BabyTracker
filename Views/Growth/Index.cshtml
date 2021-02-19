@@ -1,0 +1,35 @@
+@model IEnumerable<Growth>
+
+<h4 class="text-center bg-info p-2">Feeding</h4>
+<div class="table-responsive">  
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>Infant</th>
+                <th>Growth Type</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Growth g in Model)
+            {
+                <tr>
+                    <td>@g.Infant.FirstName</td>
+                    <td>@g.GrowthType.GetDescription()</td>
+                    <td>@g.Amount</td>
+                    <td>@g.Date.ToString("ddd dd MMM yyyy")</td>
+                    <td class="text-center">
+                        <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@g.GrowthId">Details</a>
+                        <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@g.GrowthId">Edit</a>
+                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@g.GrowthId">Delete</a>
+                    </td>
+                </tr> 
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a class="btn btn-sm btn-primary" asp-controller="Infant" asp-action="Index">Back</a>
+    <a class="btn btn-sm btn-primary" asp-action="Create" asp-route-id="@ViewBag.Id">Create</a>
+</div>

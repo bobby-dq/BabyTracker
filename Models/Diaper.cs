@@ -32,7 +32,6 @@ namespace BabyTracker.Models
         
         [Required(ErrorMessage="Please enter a date and time.")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString="{0: ddd dd MMM yyyy HH:mm}")]
         public DateTime Time {get; set;} = DateTime.Now;
 
 

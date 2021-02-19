@@ -1,0 +1,69 @@
+@model GrowthViewModel
+<partial name="_Validation"/>
+
+<h5>@Model.Infant.FirstName: Growth @Model.Action</h5>
+
+<form asp-action="@Model.Action" method="post">
+    <div class="form-group">
+        <div>
+            <span asp-validation-for="Growth.InfantId" class="text-danger"></span>
+        </div>
+        <input type="hidden" class="form-control" asp-for="Growth.InfantId" readonly/>
+    </div>
+    <div class="form-group">
+        <div>
+            <span asp-validation-for="Growth.GrowthId" class="text-danger"></span>
+        </div>
+        <input type="hidden" class="form-control" asp-for="Growth.GrowthId" readonly/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Growth.GrowthType"></label>
+        <div>
+            <span asp-validation-for="Growth.GrowthType" class="text-danger"></span>
+        </div>
+        <select asp-for="Growth.GrowthType" class="form-control" disabled="@Model.ReadOnly" asp-items="@Html.GetEnumSelectList<GrowthEnum>()">
+            <option value="" disabled selected>Choose a Growth Type</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Growth.Amount"></label>
+        <div>
+            <span asp-validation-for="Growth.Amount" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Growth.Amount" readonly="@Model.ReadOnly"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Growth.Date"></label>
+        <div>
+            <span asp-validation-for="Growth.Date" class="text-danger"></span>
+        </div>
+        @if(Model.ReadOnly)
+        {
+            <div class="form-control">@Model.Growth.Date.ToString("ddd dd MMM yyyy")</div>
+            <input type="hidden" class="form-control" asp-for="Growth.Date" readonly="@Model.ReadOnly"/>
+        }
+        else
+        {
+            <input class="form-control" asp-for="Growth.Date" readonly="@Model.ReadOnly"/>
+        }
+    </div>
+    <div class="form-group">
+        <label asp-for="Growth.Description"></label>
+        <div>
+            <span asp-validation-for="Growth.Description" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Growth.Description" readonly="@Model.ReadOnly"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Growth.Comments"></label>
+        <div>
+            <span asp-validation-for="Growth.Comments" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Growth.Comments" readonly="@Model.ReadOnly"/>
+    </div>
+    @if (Model.ShowAction)
+    {
+        <button class="btn btn-@Model.Theme" type="submit">@Model.Action</button>
+    }
+    <a class="btn btn-secondary" asp-action="Index" asp-route-id="@Model.Infant.InfantId">Back</a>
+</form>

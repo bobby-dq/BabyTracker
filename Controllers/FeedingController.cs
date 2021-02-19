@@ -24,13 +24,13 @@ namespace BabyTracker.Controllers
         {
             ViewData["InfantName"] =  context.Infants.FirstOrDefault(i => i.InfantId == id).FirstName;
             ViewBag.Id = id;
-            IEnumerable<Feeding> Feedings = context.Feedings.Where(d => d.InfantId == id).Select(d => d);
+            IEnumerable<Feeding> Feedings = context.Feedings.Where(f => f.InfantId == id).Select(f => f);
             return View("Index", Feedings);
         }
 
         public async Task<IActionResult> Details (long id)
         {
-            Feeding feeding = await context.Feedings.Include(d => d.Infant).FirstOrDefaultAsync(d => d.FeedingId == id);
+            Feeding feeding = await context.Feedings.Include(f => f.Infant).FirstOrDefaultAsync(f => f.FeedingId == id);
             Infant infant = feeding.Infant;
             FeedingViewModel model = FeedingViewModelFactory.Details(feeding, infant);
             return View("FeedingEditor", model);
@@ -65,7 +65,7 @@ namespace BabyTracker.Controllers
         // HTTP Get
         public async Task<IActionResult> Edit (long id)
         {
-            Feeding feeding = await context.Feedings.Include(d => d.Infant).FirstOrDefaultAsync(d => d.FeedingId == id);
+            Feeding feeding = await context.Feedings.Include(f => f.Infant).FirstOrDefaultAsync(f => f.FeedingId == id);
             return View("FeedingEditor", FeedingViewModelFactory.Edit(feeding, feeding.Infant));
         }
 
@@ -84,7 +84,7 @@ namespace BabyTracker.Controllers
         // HTTP GEt
         public async Task<IActionResult> Delete (long id)
         {
-            Feeding feeding = await context.Feedings.Include(d => d.Infant).FirstOrDefaultAsync(d => d.FeedingId == id);
+            Feeding feeding = await context.Feedings.Include(f => f.Infant).FirstOrDefaultAsync(f => f.FeedingId == id);
             return View("FeedingEditor", FeedingViewModelFactory.Delete(feeding, feeding.Infant));
         }
 
