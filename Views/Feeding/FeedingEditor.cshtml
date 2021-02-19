@@ -1,0 +1,77 @@
+@model FeedingViewModel
+
+<partial name="_Validation"/>
+
+<h5>@Model.Infant.FirstName: Feeding @Model.Action</h5>
+
+<form asp-action="@Model.Action" method="post">
+    <div class="form-group">
+        <div>
+            <span asp-validation-for="Feeding.InfantId" class="text-danger"></span>
+        </div>
+        <input type="hidden" class="form-control" asp-for="Feeding.InfantId" readonly/>
+    </div>
+    <div class="form-group">
+        <div>
+            <span asp-validation-for="Feeding.FeedingId" class="text-danger"></span>
+        </div>
+        <input type="hidden" class="form-control" asp-for="Feeding.FeedingId" readonly/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Feeding.FeedType"></label>
+        <div>
+            <span asp-validation-for="Feeding.FeedType" class="text-danger"></span>
+        </div>
+        <select asp-for="Feeding.FeedType" class="form-control" disabled="@Model.ReadOnly" asp-items="@Html.GetEnumSelectList<FeedEnum>()">
+            <option value="" disabled selected>Choose a Feeding Type</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Feeding.Amount"></label>
+        <div>
+            <span asp-validation-for="Feeding.Amount" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Feeding.Amount" readonly="@Model.ReadOnly"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Feeding.StartTime"></label>
+        <div>
+            <span asp-validation-for="Feeding.StartTime" class="text-danger"></span>
+        </div>
+        @if(Model.ReadOnly)
+        {
+            <div class="form-control">@Model.Feeding.StartTime.ToString("HH:mm ddd dd MMM yyyy")</div>
+            <input type="hidden" class="form-control" asp-for="Feeding.StartTime" readonly="@Model.ReadOnly"/>
+        }
+        else
+        {
+            <input class="form-control" asp-for="Feeding.StartTime" readonly="@Model.ReadOnly"/>
+        }
+    </div>
+    <div class="form-group">
+        <label asp-for="Feeding.Duration"></label>
+        <div>
+            <span asp-validation-for="Feeding.Duration" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Feeding.Duration" readonly="@Model.ReadOnly"/>        
+    </div>
+    <div class="form-group">
+        <label asp-for="Feeding.Description"></label>
+        <div>
+            <span asp-validation-for="Feeding.Description" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Feeding.Description" readonly="@Model.ReadOnly"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Feeding.Comments"></label>
+        <div>
+            <span asp-validation-for="Feeding.Comments" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Feeding.Comments" readonly="@Model.ReadOnly"/>
+    </div>
+    @if (Model.ShowAction)
+    {
+        <button class="btn btn-@Model.Theme" type="submit">@Model.Action</button>
+    }
+    <a class="btn btn-secondary" asp-action="Index" asp-route-id="@Model.Infant.InfantId">Back</a>
+</form>

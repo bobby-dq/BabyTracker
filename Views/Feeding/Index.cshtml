@@ -1,39 +1,37 @@
 ﻿@model IEnumerable<Feeding>
 
 <h4 class="text-center bg-info">Feeding</h4>
-<div class="table-responsive">
-    
-<table class="table table-sm table-striped">
-    <thead>
-        <tr>
-            <th>Infant</th>
-            <th>Feed Type</th>
-            <th>Description</th>
-            <th>Comments</th>
-            <th>Start Time</th>
-            <th>Amount</th>
-            <th>Duration</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Feeding f in Model)
-        {
+<div class="table-responsive">  
+    <table class="table table-sm table-striped">
+        <thead>
             <tr>
-                <td>@f.Infant.FirstName</td>
-                <td>@f.FeedType.GetDescription()</td>
-                <td>@f.Description</td>
-                <td>@f.Comments</td>
-                <td>@f.StartTime</td>
-                <td>@f.Amount</td>
-                <td>@f.Duration</td>
-                <td class="text-center">
-                    <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@f.FeedingId">Details</a>
-                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@f.FeedingId">Edit</a>
-                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@f.FeedingId">Delete</a>
-                </td>
-            </tr> 
-        }
-    </tbody>
-</table>
+                <th>Infant</th>
+                <th>Feed Type</th>
+                <th>Amount</th>
+                <th>Start Time</th>
+                <th>Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Feeding f in Model)
+            {
+                <tr>
+                    <td>@f.Infant.FirstName</td>
+                    <td>@f.FeedType.GetDescription()</td>
+                    <td>@f.Amount</td>
+                    <td>@f.StartTime</td>
+                    <td>@f.Duration</td>
+                    <td class="text-center">
+                        <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@f.FeedingId">Details</a>
+                        <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@f.FeedingId">Edit</a>
+                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@f.FeedingId">Delete</a>
+                    </td>
+                </tr> 
+            }
+        </tbody>
+    </table>
 </div>
-<a asp-action="Create">Create</a>
+<div>
+    <a class="btn btn-sm btn-primary" asp-controller="Infant" asp-action="Index">Back</a>
+    <a class="btn btn-sm btn-primary" asp-action="Create" asp-route-id="@ViewBag.Id">Create</a>
+</div>

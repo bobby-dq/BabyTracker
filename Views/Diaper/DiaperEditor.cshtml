@@ -25,7 +25,6 @@
         <select asp-for="Diaper.DiaperType" class="form-control" disabled="@Model.ReadOnly" asp-items="@Html.GetEnumSelectList<DiaperEnum>()">
             <option value="" disabled selected>Choose a Diaper Type</option>
         </select>
-        
     </div>
     <div class="form-group">
         <label asp-for="Diaper.Time"></label>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,16 +12,89 @@ using BabyTracker.Models.ViewModelFactories;
 namespace BabyTracker.Controllers
 {
     [AutoValidateAntiforgeryToken]
-    public class FeedingController:Controller
+    public class FeedingController: Controller
     {
         private BabyTrackerContext context;
         public FeedingController(BabyTrackerContext ctx)
         {
             context = ctx;
         }
+
         public IActionResult Index(long id)
         {
-            return View(context.Feedings.Include(f => f.Infant).Where(f => f.InfantId == id).Select(f => f));
+            ViewData["InfantName"] =  context.Infants.FirstOrDefault(i => i.InfantId == id).FirstName;
+            ViewBag.Id = id;
+            IEnumerable<Feeding> Feedings = context.Feedings.Where(d => d.InfantId == id).Select(d => d);
+            return View("Index", Feedings);
+        }
+
+        public async Task<IActionResult> Details (long id)
+        {
+            Feeding feeding = await context.Feedings.Include(d => d.Infant).FirstOrDefaultAsync(d => d.FeedingId == id);
+            Infant infant = feeding.Infant;
+            FeedingViewModel model = FeedingViewModelFactory.Details(feeding, infant);
+            return View("FeedingEditor", model);
+        }
+
+        // HTTP Get
+        public IActionResult Create (long id)
+        {
+            Infant infant = context.Infants.FirstOrDefault(i => i.InfantId == id);
+            Feeding feeding = new Feeding
+            {
+                StartTime= DateTime.Now,
+                InfantId = id
+            };
+            return View ("FeedingEditor", FeedingViewModelFactory.Create(feeding, infant));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromForm] Feeding feeding)
+        {
+            if (ModelState.IsValid)
+            {
+                feeding.FeedingId = default;
+                feeding.Infant = default;
+                context.Feedings.Add(feeding);
+                await context.SaveChangesAsync();
+                return RedirectToAction("Index", new {id = feeding.InfantId});
+            }
+            return View("FeedingEditor", FeedingViewModelFactory.Create(feeding, feeding.Infant));
+        }
+
+        // HTTP Get
+        public async Task<IActionResult> Edit (long id)
+        {
+            Feeding feeding = await context.Feedings.Include(d => d.Infant).FirstOrDefaultAsync(d => d.FeedingId == id);
+            return View("FeedingEditor", FeedingViewModelFactory.Edit(feeding, feeding.Infant));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit([FromForm] Feeding feeding)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Feedings.Update(feeding);
+                await context.SaveChangesAsync();
+                return RedirectToAction("Index", new {id = feeding.InfantId});
+            }
+            return View("FeedingEditor", FeedingViewModelFactory.Edit(feeding, feeding.Infant));
+        }
+
+        // HTTP GEt
+        public async Task<IActionResult> Delete (long id)
+        {
+            Feeding feeding = await context.Feedings.Include(d => d.Infant).FirstOrDefaultAsync(d => d.FeedingId == id);
+            return View("FeedingEditor", FeedingViewModelFactory.Delete(feeding, feeding.Infant));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Feeding feeding)
+        {
+            long infantId = feeding.InfantId;
+            context.Feedings.Remove(feeding);
+            await context.SaveChangesAsync();
+            return RedirectToAction("Index", new {id = infantId});
         }
     }
 }

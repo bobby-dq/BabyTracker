@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BabyTracker.Migrations
 {
-    public partial class Initial : Migration
+    public partial class migrate_this : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -55,8 +55,8 @@ namespace BabyTracker.Migrations
                     Description = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
                     Comments = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
-                    Duration = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(8,2)", nullable: true),
+                    Duration = table.Column<decimal>(type: "decimal(8,2)", nullable: true),
                     InfantId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>

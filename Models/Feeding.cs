@@ -32,25 +32,23 @@ namespace BabyTracker.Models
 
         [Required(ErrorMessage="Please enter a date and time.")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(ApplyFormatInEditMode=true, DataFormatString="{0: HH:mm ddd, dd-MMM-yyyy}")]
+        [DisplayFormat(DataFormatString="{0: ddd dd MMM yyyy HH:mm}")]
         [Display(Name="Start Time")]
         public DateTime StartTime{get; set;}
 
 
 
-        [Column(TypeName="decimal(8, 2)")] 
-        [Required(ErrorMessage="Please enter an amount (grams for solid, and mililiters for fluids")]
+        [Column(TypeName="decimal(8, 2)")]
         [Range(0, 999999, ErrorMessage="Please enter a positive number.")]
         [Display(Prompt="Enter amount in grams for solid, mililiters for fluids")]
-        public decimal Amount{ get; set;}
+        public decimal? Amount{ get; set;}
 
 
 
         [Column(TypeName="decimal(8, 2)")] 
-        [Required(ErrorMessage="Please enter duration (in minutes)")]
         [Range(0, 999999, ErrorMessage="Please enter a positive number.")]
-        [Display(Prompt="Enter duration in minutes.")]
-        public decimal Duration {get; set;}
+        [Display(Prompt="Enter duration in minutes (breastfeed).")]
+        public decimal? Duration {get; set;}
 
 
 

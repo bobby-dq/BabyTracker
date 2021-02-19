@@ -57,7 +57,7 @@ namespace BabyTracker.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<decimal>("Amount")
+                    b.Property<decimal?>("Amount")
                         .HasColumnType("decimal(8,2)");
 
                     b.Property<string>("Comments")
@@ -68,7 +68,7 @@ namespace BabyTracker.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<decimal>("Duration")
+                    b.Property<decimal?>("Duration")
                         .HasColumnType("decimal(8,2)");
 
                     b.Property<int>("FeedType")

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BabyTracker.Migrations
 {
     [DbContext(typeof(BabyTrackerContext))]
-    [Migration("20210217051050_Initial")]
-    partial class Initial
+    [Migration("20210219065655_migrate_this")]
+    partial class migrate_this
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,7 +59,7 @@ namespace BabyTracker.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<decimal>("Amount")
+                    b.Property<decimal?>("Amount")
                         .HasColumnType("decimal(8,2)");
 
                     b.Property<string>("Comments")
@@ -70,7 +70,7 @@ namespace BabyTracker.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<decimal>("Duration")
+                    b.Property<decimal?>("Duration")
                         .HasColumnType("decimal(8,2)");
 
                     b.Property<int>("FeedType")

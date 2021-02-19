@@ -42,6 +42,7 @@ namespace BabyTracker.Controllers
             Infant infant = context.Infants.FirstOrDefault(i => i.InfantId == id);
             Diaper diaper = new Diaper
             {
+                Time=DateTime.Now,
                 InfantId = id
             };
             return View ("DiaperEditor", DiaperViewModelFactory.Create(diaper, infant));
