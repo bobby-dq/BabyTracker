@@ -1,0 +1,35 @@
+@model IEnumerable<Medication>
+
+<h4 class="text-center bg-info p-2">Medication</h4>
+<div class="table-responsive">  
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>Infant</th>
+                <th>Medication Typee</th>
+                <th>Date</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Medication m in Model)
+            {
+                <tr>
+                    <td>@m.Infant.FirstName</td>
+                    <td>@m.MedicationType.GetDescription()</td>
+                    <td>@m.Date.ToString("HH:mm ddd dd MMM yyyy")td>
+                    <td>@m.Description</td>
+                    <td class="text-center">
+                        <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@m.MedicationId">Details</a>
+                        <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@m.MedicationId">Edit</a>
+                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@m.MedicationId">Delete</a>
+                    </td>
+                </tr> 
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a class="btn btn-sm btn-primary" asp-controller="Infant" asp-action="Index">Back</a>
+    <a class="btn btn-sm btn-primary" asp-action="Create" asp-route-id="@ViewBag.Id">Create</a>
+</div>

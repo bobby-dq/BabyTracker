@@ -5,6 +5,7 @@
     <table class="table table-sm table-striped">
         <thead>
             <tr>
+                <th>Infant</th>
                 <th>Diaper Type</th>
                 <th>Time</th>
             </tr>
@@ -13,6 +14,7 @@
             @foreach (Diaper d in Model)
             {
                 <tr>
+                    <td>@d.Infant.FirstName</td>
                     <td>@d.DiaperType.GetDescription()</td>
                     <td>@d.Time.ToString("HH:mm ddd dd MMM yyyy")</td>
                     <td class="text-center">

@@ -19,7 +19,7 @@
                     <td>@f.Infant.FirstName</td>
                     <td>@f.FeedType.GetDescription()</td>
                     <td>@f.Amount</td>
-                    <td>@f.StartTime</td>
+                    <td>@f.StartTime.ToString("HH:mm ddd dd MMM yyyy")</td>
                     <td>@f.Duration</td>
                     <td class="text-center">
                         <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@f.FeedingId">Details</a>
