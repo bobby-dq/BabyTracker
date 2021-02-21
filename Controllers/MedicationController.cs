@@ -49,8 +49,9 @@ namespace BabyTracker.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] Medication medication)
+        public async Task<IActionResult> Create(long id, [FromForm] Medication medication)
         {
+            Infant infant = context.Infants.FirstOrDefault(i => i.InfantId == id);
             if (ModelState.IsValid)
             {
                 medication.MedicationId = default;
@@ -59,7 +60,7 @@ namespace BabyTracker.Controllers
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index", new {id = medication.InfantId});
             }
-            return View("MedicationEditor", MedicationViewModelFactory.Create(medication, medication.Infant));
+            return View("MedicationEditor", MedicationViewModelFactory.Create(medication, infant));
         }
 
         // HTTP Get
@@ -70,15 +71,17 @@ namespace BabyTracker.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit([FromForm] Medication medication)
+        public async Task<IActionResult> Edit(long id, [FromForm] Medication medication)
         {
+            Medication preSaveMedication = await context.Medications.AsNoTracking().Include(m => m.Infant).FirstOrDefaultAsync(m => m.MedicationId == id);
+            Infant infant = preSaveMedication.Infant;
             if (ModelState.IsValid)
             {
                 context.Medications.Update(medication);
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index", new {id = medication.InfantId});
             }
-            return View("MedicationEditor", MedicationViewModelFactory.Edit(medication, medication.Infant));
+            return View("MedicationEditor", MedicationViewModelFactory.Edit(medication, infant));
         }
 
         // HTTP GEt

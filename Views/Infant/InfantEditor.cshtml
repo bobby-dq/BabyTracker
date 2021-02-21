@@ -37,15 +37,7 @@
         <div>
             <span asp-validation-for="Infant.Dob" class="text-danger"></span>
         </div>
-        @if(Model.ReadOnly)
-        {
-            <div class="form-control">@Model.Infant.Dob.ToString("dddd dd-MMMM-yyyy")</div>
-            <input type="hidden" class="form-control" asp-for="Infant.Dob" readonly="@Model.ReadOnly"/>
-        }
-        else
-        {
-            <input class="form-control" asp-for="Infant.Dob" readonly="@Model.ReadOnly"/>
-        }
+        <input class="form-control" asp-for="Infant.Dob" readonly="@Model.ReadOnly" asp-format="{0:yyyy-MM-dd}"/>
     </div>
     
     @if (Model.ShowAction)

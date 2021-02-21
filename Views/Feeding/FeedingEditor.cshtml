@@ -38,15 +38,7 @@
         <div>
             <span asp-validation-for="Feeding.StartTime" class="text-danger"></span>
         </div>
-        @if(Model.ReadOnly)
-        {
-            <div class="form-control">@Model.Feeding.StartTime.ToString("HH:mm ddd dd MMM yyyy")</div>
-            <input type="hidden" class="form-control" asp-for="Feeding.StartTime" readonly="@Model.ReadOnly"/>
-        }
-        else
-        {
-            <input class="form-control" asp-for="Feeding.StartTime" readonly="@Model.ReadOnly"/>
-        }
+        <input class="form-control" asp-for="Feeding.StartTime" readonly="@Model.ReadOnly" asp-format="{0:yyyy-MM-ddTHH:mm}"/>
     </div>
     <div class="form-group">
         <label asp-for="Feeding.Duration"></label>

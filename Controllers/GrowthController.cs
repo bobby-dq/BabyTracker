@@ -74,12 +74,10 @@ namespace BabyTracker.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(long id, [FromForm] Growth growth)
         {
-            Growth preSaveGrowth = await context.Growths.Include(g => g.Infant).FirstOrDefaultAsync(g => g.GrowthId == id);
+            Growth preSaveGrowth = await context.Growths.AsNoTracking().Include(g => g.Infant).FirstOrDefaultAsync(g => g.GrowthId == id);
             Infant infant = preSaveGrowth.Infant;
             if (ModelState.IsValid)
             {
-                growth.GrowthId = default;
-                growth.Infant = default;
                 context.Growths.Update(growth);
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index", new {id = growth.InfantId});
