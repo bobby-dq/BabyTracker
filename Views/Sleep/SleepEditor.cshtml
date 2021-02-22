@@ -1,0 +1,51 @@
+@model SleepViewModel
+
+<partial name="_Validation"/>
+
+<form asp-action="@Model.Action" method="post">
+     <div class="form-group">
+        <div>
+            <span asp-validation-for="Sleep.InfantId" class="text-danger"></span>
+        </div>
+        <input type="hidden" class="form-control" asp-for="Sleep.InfantId" readonly/>
+    </div>
+    <div class="form-group">
+        <div>
+            <span asp-validation-for="Sleep.SleepId" class="text-danger"></span>
+        </div>
+        <input type="hidden" class="form-control" asp-for="Sleep.SleepId" readonly/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Sleep.StartTime"></label>
+        <div>
+            <span asp-validation-for="Sleep.StartTime" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Sleep.StartTime" readonly="@Model.ReadOnly" asp-format="{0:yyyy-MM-ddTHH:mm}"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Sleep.EndTime"></label>
+        <div>
+            <span asp-validation-for="Sleep.EndTime" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Sleep.EndTime" readonly="@Model.ReadOnly" asp-format="{0:yyyy-MM-ddTHH:mm}"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Sleep.Description"></label>
+        <div>
+            <span asp-validation-for="Sleep.Description" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Sleep.Description" readonly="@Model.ReadOnly"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Sleep.Comments"></label>
+        <div>
+            <span asp-validation-for="Sleep.Comments" class="text-danger"></span>
+        </div>
+        <input class="form-control" asp-for="Sleep.Comments" readonly="@Model.ReadOnly"/>
+    </div>
+     @if (Model.ShowAction)
+    {
+        <button class="btn btn-@Model.Theme" type="submit">@Model.Action</button>
+    }
+    <a class="btn btn-secondary" asp-action="Index" asp-route-id="@Model.Infant.InfantId">Back</a>
+</form>

@@ -1,0 +1,37 @@
+@model IEnumerable<Sleep>
+
+<h4 class="text-center bg-info p-2">Slep</h4>
+<div class="table-responsive">  
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>Infant</th>
+                <th>Duration</th>
+                <th>Description</th> 
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Sleep s in Model)
+            {
+                <tr>
+                    <td>@s.Infant.FirstName</td>
+                    @{
+                        string duration = s.Duration.ToString("%h") + " hours "+ s.Duration.ToString("%m") + " mins";
+                        <td>@duration</td>
+                    }
+                    
+                    <td>@s.Description</td>
+                    <td class="text-center">
+                        <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@s.SleepId">Details</a>
+                        <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@s.SleepId">Edit</a>
+                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@s.SleepId">Delete</a>
+                    </td>
+                </tr> 
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a class="btn btn-sm btn-primary" asp-controller="Infant" asp-action="Index">Back</a>
+    <a class="btn btn-sm btn-primary" asp-action="Create" asp-route-id="@ViewBag.Id">Create</a>
+</div>

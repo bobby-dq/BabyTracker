@@ -23,9 +23,20 @@ namespace BabyTracker.Models
 
         [Required(ErrorMessage="Please enter a date and time.")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(ApplyFormatInEditMode=true, DataFormatString="{0: HH:mm ddd, dd-MMM-yyyy}")]
         [Display(Name="End Time")]
         public DateTime EndTime {get; set;}
+
+
+
+
+        public TimeSpan Duration 
+        {
+            get
+            {
+                return EndTime.Subtract(StartTime);
+            }
+        }
+
 
 
 
