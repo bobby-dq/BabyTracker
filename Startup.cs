@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using BabyTracker.Models;
 using BabyTracker.Models.ViewModels;
 using BabyTracker.Models.RepositoryModels;
@@ -33,6 +34,13 @@ namespace BabyTracker
                 opts.UseSqlServer(Configuration["ConnectionStrings:BabyTrackerConnection"]);
                 opts.EnableSensitiveDataLogging(true);
             });
+
+            services.AddDbContext<IdentityContext>(opts =>
+            {
+                opts.UseSqlServer(Configuration["ConnectionStrings:BTIdentityConnection"]);
+            });
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddMvc().AddRazorRuntimeCompilation();
