@@ -45,6 +45,7 @@ namespace BabyTracker
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddMvc().AddRazorRuntimeCompilation();
             // services.AddScoped<IBabyTrackerRepository, EfBabyTrackerRepository>();
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
