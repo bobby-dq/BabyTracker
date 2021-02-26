@@ -1,0 +1,24 @@
+﻿@page
+@model LogoutModel
+@{
+    Layout = "_AccountLayout";
+
+}
+
+
+
+@functions {
+    public class LogoutModel: AccountPageModel
+    {
+        private SignInManager<IdentityUser> signInManager;
+        public LogoutModel(SignInManager<IdentityUser> signInManager)
+        {
+            this.signInManager = signInManager;
+        }
+
+        public async Task OnGetAsync()
+        {
+            await signInManager.SignOutAsync();
+        }
+    }
+}

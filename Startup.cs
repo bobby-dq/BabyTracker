@@ -59,6 +59,10 @@ namespace BabyTracker
             app.UseStaticFiles();
             app.UseStatusCodePages();
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
