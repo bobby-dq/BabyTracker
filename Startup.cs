@@ -40,6 +40,10 @@ namespace BabyTracker
                 opts.UseSqlServer(Configuration["ConnectionStrings:BTIdentityConnection"]);
             });
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
+            services.Configure<IdentityOptions>(opts => {
+                
+            });
+
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages().AddRazorRuntimeCompilation();
@@ -59,6 +63,7 @@ namespace BabyTracker
             {
                 endpoints.MapControllers();
                 endpoints.MapControllerRoute("default", "{controller=Infant}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
             SeedData.SeedDatabase(context);
         }
