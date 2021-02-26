@@ -1,5 +1,8 @@
 @page
 @model ListModel
+@{
+    Layout="_UserLayout";
+}
 
 <table class="table table-sm table-bordered">
     <tr>
@@ -22,11 +25,8 @@
             <td>@user.UserName</td>
             <td>@user.Email</td>
             <td class="text-center">
-                <form asp-page="List" method="post">
-                    <input type="hidden" name="Id" value="@user.Id">
-                    <a class="btn btn-sm btn-warning" asp-page="Edit" asp-route-id="@user.Id">Edit</a>
-                    <a class="btn btn-sm btn-danger" asp-page="Delete" asp-route-id="@user.Id">Delete</a>
-                </form>
+                <a class="btn btn-sm btn-warning" asp-page="Edit" asp-route-id="@user.Id">Edit</a>
+                <a class="btn btn-sm btn-danger" asp-page="Delete" asp-route-id="@user.Id">Delete</a>
             </td>
             </tr>    
         }

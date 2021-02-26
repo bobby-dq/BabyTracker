@@ -1,0 +1,41 @@
+@page
+@model CreateModel
+@{
+    Layout = "_RoleLayout";
+}
+
+<h5 class="bg-danger text-white text-center p-2">Delete Role</h5>
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label>Role Name</label>
+        <input name="Name" class="form-control" value="@Model.Name" disabled/>
+    </div>
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a class="btn btn-secondary" asp-page="List">Back</a>
+</form>
+
+@functions {
+    public class CreateModel: AdminPageModel
+    {
+        public RoleManager<IdentityRole> RoleManager;
+        public CreateModel (RoleManager<IdentityRole> roleManager)
+        {
+            RoleManager = roleManager;
+        }
+        [BindProperty][Required]
+        public string Name {get; set;}
+        public async Task<IActionResult> OnPostAsync() 
+        {
+            IdentityRole role = await RoleManager.FindByNameAsync(Name);
+            if (role != null)
+            {
+                await RoleManager.DeleteAsync(role);
+                return RedirectToPage("List");
+            }
+            return RedirectToPage("List");
+        }
+
+
+    }
+}

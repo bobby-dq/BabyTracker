@@ -41,7 +41,7 @@ namespace BabyTracker
             });
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
             services.Configure<IdentityOptions>(opts => {
-                
+                opts.User.RequireUniqueEmail = true;
             });
 
 
