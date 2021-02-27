@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BabyTracker.Models;
 using BabyTracker.Models.ViewModels;
@@ -15,20 +16,27 @@ namespace BabyTracker.Controllers
     public class FeedingController: Controller
     {
         private BabyTrackerContext context;
+        private UserManager<IdentityUser> userManager;
         private bool IsLoggedIn() => User.Identity.IsAuthenticated;
-        public FeedingController(BabyTrackerContext ctx)
+        public FeedingController(BabyTrackerContext ctx, UserManager<IdentityUser> usrMgr)
         {
             context = ctx;
+            userManager = usrMgr;
         }
 
         public IActionResult Index(long id)
         {
             if (IsLoggedIn())
             {
-                ViewData["InfantName"] = context.Infants.FirstOrDefault(i => i.InfantId == id).FirstName;
-                ViewBag.Id = id;
-                IEnumerable<Feeding> Feedings = context.Feedings.Where(f => f.InfantId == id).Select(f => f);
-                return View("Index", Feedings);
+                if (context.Infants.FirstOrDefault(i => i.InfantId == id).UserId == userManager.GetUserId(User))
+                {
+                    ViewData["InfantName"] = context.Infants.FirstOrDefault(i => i.InfantId == id).FirstName;
+                    ViewBag.Id = id;
+                    IEnumerable<Feeding> Feedings = context.Feedings.Where(f => f.InfantId == id).Select(f => f);
+                    return View("Index", Feedings);
+                }
+                return RedirectToPage("/Error/Unauthorized");
+                
             }
             return RedirectToPage("/Error/Unauthenticated");
         }
