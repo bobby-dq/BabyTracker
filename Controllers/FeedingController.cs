@@ -18,6 +18,8 @@ namespace BabyTracker.Controllers
         private BabyTrackerContext context;
         private UserManager<IdentityUser> userManager;
         private bool IsLoggedIn() => User.Identity.IsAuthenticated;
+        private bool IsInfantOwner(Infant infant) => infant.UserId == userManager.GetUserId(User);
+        private bool IsFeedingOwner(Feeding feeding) => feeding.Infant.UserId == userManager.GetUserId(User);
         public FeedingController(BabyTrackerContext ctx, UserManager<IdentityUser> usrMgr)
         {
             context = ctx;
@@ -28,9 +30,10 @@ namespace BabyTracker.Controllers
         {
             if (IsLoggedIn())
             {
-                if (context.Infants.FirstOrDefault(i => i.InfantId == id).UserId == userManager.GetUserId(User))
+                Infant infant = context.Infants.FirstOrDefault(i => i.InfantId == id);
+                if (IsInfantOwner(infant))
                 {
-                    ViewData["InfantName"] = context.Infants.FirstOrDefault(i => i.InfantId == id).FirstName;
+                    ViewData["InfantName"] = infant.FirstName;
                     ViewBag.Id = id;
                     IEnumerable<Feeding> Feedings = context.Feedings.Where(f => f.InfantId == id).Select(f => f);
                     return View("Index", Feedings);
@@ -44,9 +47,17 @@ namespace BabyTracker.Controllers
         public async Task<IActionResult> Details (long id)
         {
             Feeding feeding = await context.Feedings.Include(f => f.Infant).FirstOrDefaultAsync(f => f.FeedingId == id);
-            Infant infant = feeding.Infant;
-            FeedingViewModel model = FeedingViewModelFactory.Details(feeding, infant);
-            return View("FeedingEditor", model);
+            if (IsLoggedIn())
+            {
+                if (IsFeedingOwner(feeding))
+                {
+                    Infant infant = feeding.Infant;
+                    FeedingViewModel model = FeedingViewModelFactory.Details(feeding, infant);
+                    return View("FeedingEditor", model);
+                }
+                return RedirectToPage("/Error/Unauthorized")
+            }
+            return RedirectToPage("/Error/Unauthenticated");
         }
 
         // HTTP Get

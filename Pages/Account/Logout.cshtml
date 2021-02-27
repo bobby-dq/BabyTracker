@@ -16,9 +16,10 @@
             this.signInManager = signInManager;
         }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             await signInManager.SignOutAsync();
+            return Page();
         }
     }
 }

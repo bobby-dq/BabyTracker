@@ -11,7 +11,14 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
                     <h1><a asp-action="Index" asp-controller="Infant">Infants</a></h1>
-                    </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-page="/Account/Logout/">Logout</a>
+                    }
+                    else
+                    {
+                        <a asp-page="/Account/Login">Login</a>
+                    }
                 </div>
             </nav>
         </header>
