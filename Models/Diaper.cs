@@ -39,5 +39,11 @@ namespace BabyTracker.Models
         // Foreign key data
         public long InfantId {get; set;}
         public Infant Infant {get; set;}
+        
+
+        
+        // Metadata
+        public readonly DateTime DateCreated = DateTime.Now;
+
     }
 }

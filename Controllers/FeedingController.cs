@@ -15,6 +15,7 @@ namespace BabyTracker.Controllers
     public class FeedingController: Controller
     {
         private BabyTrackerContext context;
+        private bool IsLoggedIn() => User.Identity.IsAuthenticated;
         public FeedingController(BabyTrackerContext ctx)
         {
             context = ctx;
@@ -22,10 +23,14 @@ namespace BabyTracker.Controllers
 
         public IActionResult Index(long id)
         {
-            ViewData["InfantName"] =  context.Infants.FirstOrDefault(i => i.InfantId == id).FirstName;
-            ViewBag.Id = id;
-            IEnumerable<Feeding> Feedings = context.Feedings.Where(f => f.InfantId == id).Select(f => f);
-            return View("Index", Feedings);
+            if (IsLoggedIn())
+            {
+                ViewData["InfantName"] = context.Infants.FirstOrDefault(i => i.InfantId == id).FirstName;
+                ViewBag.Id = id;
+                IEnumerable<Feeding> Feedings = context.Feedings.Where(f => f.InfantId == id).Select(f => f);
+                return View("Index", Feedings);
+            }
+            return RedirectToPage("/Error/Unauthenticated");
         }
 
         public async Task<IActionResult> Details (long id)

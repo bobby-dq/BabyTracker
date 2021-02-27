@@ -9,6 +9,8 @@ namespace BabyTracker.Models
 {
     public class Infant
     {
+        public string UserId {get; set;}
+
         public long InfantId { get; set; }
 
 

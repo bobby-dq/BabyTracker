@@ -17,7 +17,7 @@ namespace BabyTracker.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.2");
+                .HasAnnotation("ProductVersion", "5.0.3");
 
             modelBuilder.Entity("BabyTracker.Models.Diaper", b =>
                 {
@@ -139,6 +139,9 @@ namespace BabyTracker.Migrations
                     b.Property<string>("LastName")
                         .HasMaxLength(32)
                         .HasColumnType("nvarchar(32)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("InfantId");
 

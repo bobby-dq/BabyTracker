@@ -28,13 +28,15 @@ namespace BabyTracker.Models.RepositoryModels
                         {
                             FirstName="Migi",
                             LastName="Datul",
-                            Dob = new DateTime(1999,1,1)
+                            Dob = new DateTime(1999,1,1),
+                            UserId = "8dbd4857-81b2-4516-869d-3793c9f346c9"
                         };
                     Infant immanuelSantaElena = new Infant
                         {
                             FirstName = "Immanuel",
                             LastName = "Santa Elena",
-                            Dob = new DateTime(2000, 02, 20)
+                            Dob = new DateTime(2000, 02, 20),
+                            UserId = "8dbd4857-81b2-4516-869d-3793c9f346c9"
                         };
 
                     context.Feedings.AddRange(
