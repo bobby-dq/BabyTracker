@@ -28,42 +28,52 @@ namespace BabyTracker.Controllers
 
         public IActionResult Index(long id)
         {
-            if (IsLoggedIn())
+            if (!IsLoggedIn())
             {
-                Infant infant = context.Infants.FirstOrDefault(i => i.InfantId == id);
-                if (IsInfantOwner(infant))
-                {
-                    ViewData["InfantName"] = infant.FirstName;
-                    ViewBag.Id = id;
-                    IEnumerable<Feeding> Feedings = context.Feedings.Where(f => f.InfantId == id).Select(f => f);
-                    return View("Index", Feedings);
-                }
-                return RedirectToPage("/Error/Unauthorized");
-                
+                return RedirectToPage("/Error/Unauthenticated");
             }
-            return RedirectToPage("/Error/Unauthenticated");
+            Infant infant = context.Infants.FirstOrDefault(i => i.InfantId == id);
+            if (!IsInfantOwner(infant))
+            {
+                return RedirectToPage("/Error/Unauthorized");
+            }
+            
+            ViewData["InfantName"] = infant.FirstName;
+            ViewBag.Id = id;
+            IEnumerable<Feeding> Feedings = context.Feedings.Where(f => f.InfantId == id).Select(f => f);
+            return View("Index", Feedings);            
         }
 
         public async Task<IActionResult> Details (long id)
         {
-            Feeding feeding = await context.Feedings.Include(f => f.Infant).FirstOrDefaultAsync(f => f.FeedingId == id);
-            if (IsLoggedIn())
+            if (!IsLoggedIn())
             {
-                if (IsFeedingOwner(feeding))
-                {
-                    Infant infant = feeding.Infant;
-                    FeedingViewModel model = FeedingViewModelFactory.Details(feeding, infant);
-                    return View("FeedingEditor", model);
-                }
-                return RedirectToPage("/Error/Unauthorized")
+                return RedirectToPage("/Error/Unauthenticated");
             }
-            return RedirectToPage("/Error/Unauthenticated");
-        }
 
+            Feeding feeding = await context.Feedings.Include(f => f.Infant).FirstOrDefaultAsync(f => f.FeedingId == id);
+            
+            if (!IsFeedingOwner(feeding))
+            {
+                return RedirectToPage("/Error/Unauthorized");
+            }
+
+            Infant infant = feeding.Infant;
+            FeedingViewModel model = FeedingViewModelFactory.Details(feeding, infant);
+            return View("FeedingEditor", model);
+        }
         // HTTP Get
         public IActionResult Create (long id)
         {
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Error/Unauthenticated");
+            }
             Infant infant = context.Infants.FirstOrDefault(i => i.InfantId == id);
+            if (!IsInfantOwner(infant))
+            {
+                return RedirectToPage("/Error/Unauthorized");
+            }
             Feeding feeding = new Feeding
             {
                 StartTime= DateTime.Now,
@@ -75,6 +85,14 @@ namespace BabyTracker.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] Feeding feeding)
         {
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Error/Unauthenticated");
+            }
+            if (!IsInfantOwner(feeding.Infant))
+            {
+                return RedirectToPage("/Error/Unauthorized");
+            }
             if (ModelState.IsValid)
             {
                 feeding.FeedingId = default;
@@ -89,13 +107,31 @@ namespace BabyTracker.Controllers
         // HTTP Get
         public async Task<IActionResult> Edit (long id)
         {
+            
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Error/Unauthenticated");
+            }
             Feeding feeding = await context.Feedings.Include(f => f.Infant).FirstOrDefaultAsync(f => f.FeedingId == id);
+            if (!IsFeedingOwner(feeding))
+            {
+                return RedirectToPage("/Error/Unauthorized");
+            }
+           
             return View("FeedingEditor", FeedingViewModelFactory.Edit(feeding, feeding.Infant));
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit([FromForm] Feeding feeding)
         {
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Error/Unauthenticated");
+            }
+            if (!IsFeedingOwner(feeding))
+            {
+                return RedirectToPage("/Error/Unauthorized");
+            }
             if (ModelState.IsValid)
             {
                 context.Feedings.Update(feeding);
@@ -108,13 +144,30 @@ namespace BabyTracker.Controllers
         // HTTP GEt
         public async Task<IActionResult> Delete (long id)
         {
+
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Error/Unauthenticated");
+            }
             Feeding feeding = await context.Feedings.Include(f => f.Infant).FirstOrDefaultAsync(f => f.FeedingId == id);
+            if (!IsFeedingOwner(feeding))
+            {
+                return RedirectToPage("/Error/Unauthorized");
+            }
             return View("FeedingEditor", FeedingViewModelFactory.Delete(feeding, feeding.Infant));
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(Feeding feeding)
         {
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Error/Unauthenticated");
+            }
+            if (!IsFeedingOwner(feeding))
+            {
+                return RedirectToPage("/Error/Unauthorized");
+            }
             long infantId = feeding.InfantId;
             context.Feedings.Remove(feeding);
             await context.SaveChangesAsync();
