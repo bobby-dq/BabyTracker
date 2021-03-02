@@ -85,15 +85,16 @@ namespace BabyTracker.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] Diaper diaper)
+        public async Task<IActionResult> Create(long id, [FromForm] Diaper diaper)
         {
-
             if (!IsLoggedIn())
             {
                 return RedirectToPage("/Account/Login");
             }
-    
-            if (!IsInfantOwner(diaper.Infant))
+
+            Infant preSaveInfant = context.Infants.AsNoTracking().FirstOrDefault(i => i.InfantId == id);
+            
+            if (!IsInfantOwner(preSaveInfant))
             {
                 return RedirectToPage("/Error/Error404");
             }
@@ -106,7 +107,7 @@ namespace BabyTracker.Controllers
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index", new {id = diaper.InfantId});
             }
-            return View("DiaperEditor", DiaperViewModelFactory.Create(diaper, diaper.Infant));
+            return View("DiaperEditor", DiaperViewModelFactory.Create(diaper, preSaveInfant));
         }
 
         // HTTP Get
@@ -128,14 +129,16 @@ namespace BabyTracker.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit([FromForm] Diaper diaper)
+        public async Task<IActionResult> Edit(long id, [FromForm] Diaper diaper)
         {
             if (!IsLoggedIn())
             {
                 return RedirectToPage("/Account/Login");
             }
-    
-            if (!IsDiaperOwner(diaper))
+
+            Diaper preSaveDiaper = context.Diapers.AsNoTracking().Include(f => f.Infant).FirstOrDefault(d => d.DiaperId == id);
+
+            if (!IsDiaperOwner(preSaveDiaper))
             {
                 return RedirectToPage("/Error/Error404");
             }
@@ -168,14 +171,16 @@ namespace BabyTracker.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(Diaper diaper)
+        public async Task<IActionResult> Delete(long id, Diaper diaper)
         {
             if (!IsLoggedIn())
             {
                 return RedirectToPage("/Account/Login");
             }
+
+            Diaper preSaveDiaper = context.Diapers.AsNoTracking().Include(f => f.Infant).FirstOrDefault(d => d.DiaperId == id);
     
-            if (!IsDiaperOwner(diaper))
+            if (!IsDiaperOwner(preSaveDiaper))
             {
                 return RedirectToPage("/Error/Error404");
             }

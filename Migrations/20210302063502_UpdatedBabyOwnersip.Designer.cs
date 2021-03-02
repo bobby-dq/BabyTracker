@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BabyTracker.Migrations
 {
     [DbContext(typeof(BabyTrackerContext))]
-    [Migration("20210227053158_BabyTracker")]
-    partial class BabyTracker
+    [Migration("20210302063502_UpdatedBabyOwnersip")]
+    partial class UpdatedBabyOwnersip
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

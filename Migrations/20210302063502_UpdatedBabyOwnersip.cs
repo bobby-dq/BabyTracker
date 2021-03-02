@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BabyTracker.Migrations
 {
-    public partial class BabyTracker : Migration
+    public partial class UpdatedBabyOwnersip : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

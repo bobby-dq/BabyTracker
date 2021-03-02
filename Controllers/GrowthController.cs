@@ -86,7 +86,18 @@ namespace BabyTracker.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(long id, [FromForm] Growth growth)
         {   
-            Infant infant = context.Infants.FirstOrDefault(i => i.InfantId == id);
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            Infant preSaveInfant = context.Infants.AsNoTracking().FirstOrDefault(i => i.InfantId == id);
+
+            if (!IsInfantOwner(preSaveInfant))
+            {
+                return RedirectToPage("/Error/Error404");
+            } 
+
             if (ModelState.IsValid)
             {
                 growth.GrowthId = default;
@@ -95,20 +106,42 @@ namespace BabyTracker.Controllers
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index", new {id = growth.InfantId});
             }
-            return View("GrowthEditor", GrowthViewModelFactory.Create(growth, infant));
+            return View("GrowthEditor", GrowthViewModelFactory.Create(growth, preSaveInfant));
         }
 
         // HTTP Get
         public async Task<IActionResult> Edit (long id)
         {
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Account/Login");
+            }
+            
             Growth growth = await context.Growths.Include(g => g.Infant).FirstOrDefaultAsync(g => g.GrowthId == id);
+
+            if (!IsGrowthOwner(growth))
+            {
+                return RedirectToPage("/Error/Error404");
+            }
+
             return View("GrowthEditor", GrowthViewModelFactory.Edit(growth, growth.Infant));
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(long id, [FromForm] Growth growth)
         {
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Account/Login");
+            }
+            
             Growth preSaveGrowth = await context.Growths.AsNoTracking().Include(g => g.Infant).FirstOrDefaultAsync(g => g.GrowthId == id);
+            
+            if (!IsGrowthOwner(preSaveGrowth))
+            {
+                return RedirectToPage("/Error/Error404");
+            }
+
             Infant infant = preSaveGrowth.Infant;
             if (ModelState.IsValid)
             {
@@ -122,13 +155,33 @@ namespace BabyTracker.Controllers
         // HTTP GEt
         public async Task<IActionResult> Delete (long id)
         {
+            if(!IsLoggedIn())
+            {
+                return RedirectToPage("/Account/Login");
+            }
             Growth growth = await context.Growths.Include(g => g.Infant).FirstOrDefaultAsync(g => g.GrowthId == id);
+            if(!IsGrowthOwner(growth))
+            {
+                return RedirectToPage("/Error/Error404");
+            }
             return View("GrowthEditor", GrowthViewModelFactory.Delete(growth, growth.Infant));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(Growth growth)
+        public async Task<IActionResult> Delete(long id, Growth growth)
         {
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Account/Login");
+            }
+            
+            Growth preSaveGrowth = await context.Growths.AsNoTracking().Include(g => g.Infant).FirstOrDefaultAsync(g => g.GrowthId == id);
+            
+            if (!IsGrowthOwner(preSaveGrowth))
+            {
+                return RedirectToPage("/Error/Error404");
+            }
+
             long infantId = growth.InfantId;
             context.Growths.Remove(growth);
             await context.SaveChangesAsync();
