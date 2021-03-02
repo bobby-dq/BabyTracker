@@ -1,11 +1,5 @@
 @model InfantViewModel
 
-<!-- 
-    Bind the following properties
-        FirstName
-        LastName
-        Dob
--->
  
 <partial name="_Validation"/>
 
@@ -17,6 +11,12 @@
             <span asp-validation-for="Infant.InfantId" class="text-danger"></span>
         </div>
         <input type="hidden" class="form-control" asp-for="Infant.InfantId" readonly/>
+    </div>
+    <div class="form-group">
+        <div>
+            <span asp-validation-for="Infant.UserId" class="text-danger"></span>
+        </div>
+        <input type="hidden" class="form-control" asp-for="Infant.UserId" readonly/>
     </div>
     <div class="form-group">
         <label asp-for="Infant.FirstName"></label>
