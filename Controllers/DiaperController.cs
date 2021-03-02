@@ -30,15 +30,15 @@ namespace BabyTracker.Controllers
         {
             if (!IsLoggedIn())
             {
-                return RedirectToPage("/Error/Unauthenticated");
+                return RedirectToPage("/Account/Login");
             }
             Infant infant = context.Infants.FirstOrDefault(i => i.InfantId == id);
             if (!IsInfantOwner(infant))
             {
-                return RedirectToPage("/Error/Unauthorized");
+                return RedirectToPage("/Error/Error404");
             }
 
-            ViewData["InfantName"] =  context.Infants.FirstOrDefault(i => i.InfantId == id).FirstName;
+            ViewData["InfantName"] =  infant.FirstName;
             ViewBag.Id = id;
             IEnumerable<Diaper> Diapers = context.Diapers.Where(d => d.InfantId == id).Select(d => d);
             return View("Index", Diapers);
@@ -48,14 +48,14 @@ namespace BabyTracker.Controllers
         {
             if (!IsLoggedIn())
             {
-                return RedirectToPage("/Error/Unauthenticated");
+                return RedirectToPage("/Account/Login");
             }
 
             Diaper diaper = await context.Diapers.Include(f => f.Infant).FirstOrDefaultAsync(f => f.DiaperId == id);
     
             if (!IsDiaperOwner(diaper))
             {
-                return RedirectToPage("/Error/Unauthorized");
+                return RedirectToPage("/Error/Error404");
             }
             
             Infant infant = diaper.Infant;
@@ -68,12 +68,12 @@ namespace BabyTracker.Controllers
         {
             if (!IsLoggedIn())
             {
-                return RedirectToPage("/Error/Unauthenticated");
+                return RedirectToPage("/Account/Login");
             }
             Infant infant = context.Infants.FirstOrDefault(i => i.InfantId == id);
             if (!IsInfantOwner(infant))
             {
-                return RedirectToPage("/Error/Unauthorized");
+                return RedirectToPage("/Error/Error404");
             }
 
             Diaper diaper = new Diaper
@@ -90,12 +90,12 @@ namespace BabyTracker.Controllers
 
             if (!IsLoggedIn())
             {
-                return RedirectToPage("/Error/Unauthenticated");
+                return RedirectToPage("/Account/Login");
             }
     
             if (!IsInfantOwner(diaper.Infant))
             {
-                return RedirectToPage("/Error/Unauthorized");
+                return RedirectToPage("/Error/Error404");
             }
             
             if (ModelState.IsValid)
@@ -114,14 +114,14 @@ namespace BabyTracker.Controllers
         {
             if (!IsLoggedIn())
             {
-                return RedirectToPage("/Error/Unauthenticated");
+                return RedirectToPage("/Account/Login");
             }
 
             Diaper diaper = await context.Diapers.Include(f => f.Infant).FirstOrDefaultAsync(f => f.DiaperId == id);
             
             if (!IsDiaperOwner(diaper))
             {
-                return RedirectToPage("/Error/Unauthorized");
+                return RedirectToPage("/Error/Error404");
             }
 
             return View("DiaperEditor", DiaperViewModelFactory.Edit(diaper, diaper.Infant));
@@ -132,12 +132,12 @@ namespace BabyTracker.Controllers
         {
             if (!IsLoggedIn())
             {
-                return RedirectToPage("/Error/Unauthenticated");
+                return RedirectToPage("/Account/Login");
             }
     
             if (!IsDiaperOwner(diaper))
             {
-                return RedirectToPage("/Error/Unauthorized");
+                return RedirectToPage("/Error/Error404");
             }
 
             if (ModelState.IsValid)
@@ -154,14 +154,14 @@ namespace BabyTracker.Controllers
         {
             if (!IsLoggedIn())
             {
-                return RedirectToPage("/Error/Unauthenticated");
+                return RedirectToPage("/Account/Login");
             }
 
             Diaper diaper = await context.Diapers.Include(f => f.Infant).FirstOrDefaultAsync(f => f.DiaperId == id);
             
             if (!IsDiaperOwner(diaper))
             {
-                return RedirectToPage("/Error/Unauthorized");
+                return RedirectToPage("/Error/Error404");
             }
 
             return View("DiaperEditor", DiaperViewModelFactory.Delete(diaper, diaper.Infant));
@@ -172,12 +172,12 @@ namespace BabyTracker.Controllers
         {
             if (!IsLoggedIn())
             {
-                return RedirectToPage("/Error/Unauthenticated");
+                return RedirectToPage("/Account/Login");
             }
     
             if (!IsDiaperOwner(diaper))
             {
-                return RedirectToPage("/Error/Unauthorized");
+                return RedirectToPage("/Error/Error404");
             }
             
             long infantId = diaper.InfantId;

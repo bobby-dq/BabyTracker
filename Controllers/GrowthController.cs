@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using BabyTracker.Models;
 using BabyTracker.Models.ViewModels;
 using BabyTracker.Models.RepositoryModels;
@@ -16,14 +17,30 @@ namespace BabyTracker.Controllers
     public class GrowthController: Controller
     {
         private BabyTrackerContext context;
-        public GrowthController(BabyTrackerContext ctx)
+        private UserManager<IdentityUser> userManager;
+        private bool IsLoggedIn() => User.Identity.IsAuthenticated;
+        private bool IsInfantOwner(Infant infant) => infant.UserId == userManager.GetUserId(User);
+        private bool IsGrowthOwner(Growth growth) => growth.Infant.UserId == userManager.GetUserId(User);
+
+        public GrowthController(BabyTrackerContext ctx, UserManager<IdentityUser> usrMgr)
         {
             context = ctx;
+            userManager = usrMgr;
         }
 
         public IActionResult Index(long id)
         {
-            ViewData["InfantName"] =  context.Infants.FirstOrDefault(i => i.InfantId == id).FirstName;
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Account/Login");
+            }
+            Infant infant = context.Infants.FirstOrDefault(i => i.InfantId == id);
+            if (!IsInfantOwner(infant))
+            {
+                return RedirectToPage("/Error/Error404");
+            }
+            
+            ViewData["InfantName"] = infant.FirstName;
             ViewBag.Id = id;
             IEnumerable<Growth> Growths = context.Growths.Where(g => g.InfantId == id).Select(g => g);
             return View("Index", Growths);
@@ -31,7 +48,16 @@ namespace BabyTracker.Controllers
 
         public async Task<IActionResult> Details (long id)
         {
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Account/Login");
+            }
             Growth growth = await context.Growths.Include(g => g.Infant).FirstOrDefaultAsync(g => g.GrowthId == id);
+            if (!IsGrowthOwner(growth))
+            {
+                return RedirectToPage("/Error/Error404");
+            }
+
             Infant infant = growth.Infant;
             GrowthViewModel model = GrowthViewModelFactory.Details(growth, infant);
             return View("GrowthEditor", model);
@@ -40,7 +66,15 @@ namespace BabyTracker.Controllers
         // HTTP Get
         public IActionResult Create (long id)
         {
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Account/Login");
+            }
             Infant infant = context.Infants.FirstOrDefault(i => i.InfantId == id);
+            if (!IsInfantOwner(infant))
+            {
+                return RedirectToPage("/Error/Error404");
+            }
             Growth growth = new Growth
             {
                 Date = DateTime.Now,

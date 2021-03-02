@@ -36,7 +36,7 @@ namespace BabyTracker.Models.RepositoryModels
                             FirstName = "Immanuel",
                             LastName = "Santa Elena",
                             Dob = new DateTime(2000, 02, 20),
-                            UserId = "8dbd4857-81b2-4516-869d-3793c9f346c9"
+                            UserId = "11b0c93c-e011-4596-ad68-a4e4708d16f7"
                         };
 
                     context.Feedings.AddRange(
