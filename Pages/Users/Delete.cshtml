@@ -30,8 +30,11 @@
 
 
 @functions{
-    public class EditModel: AdminPageModel
+    public class EditModel: AccountPageModel
     {
+        
+        private bool IsLoggedIn() => User.Identity.IsAuthenticated;
+        private bool IsUserOwner(string id) => UserManager.GetUserId(User) == id;
         public UserManager<IdentityUser> UserManager;
         public EditModel(UserManager<IdentityUser> userManger)
         {
@@ -47,16 +50,33 @@
         [BindProperty]
         public string Password { get; set; }
 
-        public async Task OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Account/Login");
+            }
+            if (!IsUserOwner(id))
+            {
+                return RedirectToPage("/Error/Error404");
+            }
             IdentityUser user = await UserManager.FindByIdAsync(id);
             Id = user.Id;
             UserName = user.UserName;
             Email = user.Email;
+            return Page();
         }
         
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!IsLoggedIn())
+            {
+                return RedirectToPage("/Account/Login");
+            }
+            if (!IsUserOwner(Id))
+            {
+                return RedirectToPage("/Error/Error404");
+            }
             IdentityUser user = await UserManager.FindByIdAsync(Id);
             if (user != null)
             {

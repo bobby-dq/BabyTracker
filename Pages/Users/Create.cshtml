@@ -24,7 +24,7 @@
 </form>
 
 @functions {
-    public class CreateModel: AdminPageModel
+    public class CreateModel: AccountPageModel
     {
         public UserManager<IdentityUser> UserManager;
         public CreateModel(UserManager<IdentityUser> userManager)
@@ -37,6 +37,14 @@
         public string Email {get; set;}
         [BindProperty][Required]
         public string Password {get; set;}
+        public IActionResult OnGet()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToPage("/Account/Logout");
+            }
+            return Page();
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {
