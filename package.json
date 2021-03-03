@@ -1,0 +1,26 @@
+{
+  "name": "BabyTracker",
+  "version": "1.0.0",
+  "description": "A web application that you can use to track your newborn's bowel, eating, and sleeping habits.\r ## News and Updates\r     02-Mar-2021 \"Created CRUD operations for entity models, implemented users and roles from AspNet Idenitity, and implemented AuthN and AuthZ on controllers and razor pages.\"\r     16-Feb-2021 \"Started the model property validations, as well as the infant view model factory.\"\r     13-Feb-2021 \"Migrated the database seed data and initialized the database connection string.\"\r     12-Feb-2021 \"Added the models Diaper, Feeding, Growth, Infant, Medication (no validations yet)\"\r     03-Feb-2021 \"Initialized the project.\"",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bobby-dq/BabyTracker.git"
+  },
+  "scripts":{
+    "css:build":"npx tailwind build ./wwwroot/css/site.css -o ./wwwroot/css/output.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bobby-dq/BabyTracker/issues"
+  },
+  "homepage": "https://github.com/bobby-dq/BabyTracker#readme",
+  "devDependencies": {
+    "@tailwindcss/postcss7-compat": "^2.0.3",
+    "autoprefixer": "^9.8.6",
+    "postcss": "^7.0.35",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3"
+  }
+}

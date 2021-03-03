@@ -3,18 +3,13 @@
     <head>
         <meta name="viewport" content="width=device-width"/>
         <title>BabyTracker</title>
-        <link href="/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet"/>
-        <link href="/lib/BabyTrackerCustomCss/babytracker.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="/css/output.css"/>>
     </head>
     <body>
         <header>
             @if (@User.Identity.IsAuthenticated)
             {
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-                        <vc:authenticated-nav-bar/>
-                    </div>
-                </nav>
+                <vc:authenticated-nav-bar/>
             }
             else
             {
@@ -32,7 +27,3 @@
         </section>
     </body>
 </html>
-
-<!--
-
--->
