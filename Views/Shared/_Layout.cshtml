@@ -8,19 +8,22 @@
     </head>
     <body>
         <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <h1><a asp-action="Index" asp-controller="Infant">Infants</a></h1>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <a asp-page="/Account/Logout">Logout</a>
-                    }
-                    else
-                    {
+            @if (@User.Identity.IsAuthenticated)
+            {
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <vc:authenticated-nav-bar/>
+                    </div>
+                </nav>
+            }
+            else
+            {
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
                         <a asp-page="/Account/Login">Login</a>
-                    }
-                </div>
-            </nav>
+                    </div>
+                </nav>   
+            }
         </header>
         <section>
             <div class="m-2 p-2">
@@ -29,3 +32,7 @@
         </section>
     </body>
 </html>
+
+<!--
+
+-->

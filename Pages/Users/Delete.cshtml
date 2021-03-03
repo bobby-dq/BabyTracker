@@ -36,9 +36,11 @@
         private bool IsLoggedIn() => User.Identity.IsAuthenticated;
         private bool IsUserOwner(string id) => UserManager.GetUserId(User) == id;
         public UserManager<IdentityUser> UserManager;
-        public EditModel(UserManager<IdentityUser> userManger)
+        public BabyTrackerContext context;
+        public EditModel(UserManager<IdentityUser> userManger, BabyTrackerContext ctx)
         {
             UserManager = userManger;
+            context = ctx;
         }
 
         [BindProperty][Required]
@@ -67,7 +69,7 @@
             return Page();
         }
         
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string id)
         {
             if (!IsLoggedIn())
             {
@@ -77,10 +79,15 @@
             {
                 return RedirectToPage("/Error/Error404");
             }
-            IdentityUser user = await UserManager.FindByIdAsync(Id);
+            IdentityUser user = await UserManager.FindByIdAsync(id);
             if (user != null)
             {
                 await UserManager.DeleteAsync(user);
+                foreach (Infant infant in context.Infants.Where(i => i.UserId == id))
+                {
+                    context.Infants.Remove(infant);
+                }
+                context.SaveChanges();
                 return RedirectToPage("List");
             }
             return RedirectToPage("List");
