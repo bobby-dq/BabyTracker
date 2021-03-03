@@ -1,10 +1,11 @@
 # Welcome to the Baby Tracker App
 A web application that you can use to track your newborn's bowel, eating, and sleeping habits.
 ## News and Updates
-    16-Feb-2020 "Started the model property validations, as well as the infant view model factory."
-    13-Feb-2020 "Migrated the database seed data and initialized the database connection string."
-    12-Feb-2020 "Added the models Diaper, Feeding, Growth, Infant, Medication (no validations yet)"
-    03-Feb-2020 "Initialized the project."
+    02-Mar-2021 "Created CRUD operations for entity models, implemented users and roles from AspNet Idenitity, and implemented AuthN and AuthZ on controllers and razor pages."
+    16-Feb-2021 "Started the model property validations, as well as the infant view model factory."
+    13-Feb-2021 "Migrated the database seed data and initialized the database connection string."
+    12-Feb-2021 "Added the models Diaper, Feeding, Growth, Infant, Medication (no validations yet)"
+    03-Feb-2021 "Initialized the project."
 
 ## Software Pre-requisites
 - [Install Visual Studio Community 2019](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
