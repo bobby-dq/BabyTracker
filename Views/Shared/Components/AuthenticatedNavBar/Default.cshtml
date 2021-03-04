@@ -1,39 +1,15 @@
 @model NavBarUserModel
-<nav class="relative flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-blue-500 mb-3">
-  <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
-    <div class="w-full relative flex justify-between lg:w-auto  px-4 lg:static lg:block lg:justify-start">
-      <a class="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-white" href="#Dashboard">
-        BabyTracker
-      </a>
-      <button class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none" type="button">
-        <span class="block relative w-6 h-px rounded-sm bg-white"></span>
-        <span class="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
-        <span class="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
-      </button>
-    </div>
-    <div class="lg:flex flex-grow items-center" id="example-navbar-warning">
-      <ul class="flex flex-col lg:flex-row list-none ml-auto">
-        <li class="nav-item">
-            <a class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" asp-action="Index" asp-controller="Infant">
-              Infants
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="#pablo">
-              Welcome @Model.Name
-            </a>
-          </li>
-           <li class="nav-item">
-            <a class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" asp-page="/Users/Edit" asp-route-id="@Model.Id">
-              Edit Account
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" asp-page="/Account/Logout">
-              Logout
-            </a>
-          </li>
-      </ul>
-    </div>
+<header class="text-gray-600 body-font shadow-md">
+  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    <a class="flex title-font font-medium items-start text-gray-900 mb-4 md:mb-0" href="#dashboard" >
+      <img class="w-10 h-10" src="\icons\iconmonstr-generation-1-240.png" alt="babytracker-logo"/>
+      <span class="ml-3 text-xl">Baby Tracker <div class="text-green-500 text-xl">Welcome @Model.Name</div> </span>
+    </a>
+    
+    <nav class="md:ml-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
+      <a class="mr-5 hover:text-gray-900" asp-action="Index" asp-controller="Infant">Infants</a>
+      <a class="mr-5 hover:text-gray-900" asp-page="/Account/Logout">Logout</a>
+      <a class="mr-5 hover:text-gray-900" asp-page="/Users/Edit" asp-route-id="@Model.Id">Edit Account</a>
+    </nav>
   </div>
-</nav>
+</header>
