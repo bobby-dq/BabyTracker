@@ -1,16 +1,20 @@
 @page
 @model CreateModel
-
-<h5 class="bg-danger text-white text-center p-2">Delete Role</h5>
-<form method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <label>Role Name</label>
-        <input name="Name" class="form-control" value="@Model.Name" disabled/>
+<div class="container px-5 py-24 mx-auto flex">
+    <div class="bg-red-50 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+        <div class="text-red-700" asp-validation-summary="All"></div>
+        <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">Delete</h2>
+        <form method="post">
+            <div class="relative mb-4">
+                <label for="rolename" class="leading-7 text-sm text-gray-600">Role Name</label>
+                <input disabled id="rolename" name="Role.Name" value="@Model.Role.Name" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            </div>
+            <button type="submit" class="text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">Delete</button>
+        </form>
+        <a asp-page="/Roles/List"><button class="text-red-500 bg-red-100 border-0 my-2 py-1 px-8 focus:outline-none hover:bg-red-50 rounded text-lg">Back</button></a>
     </div>
-    <button type="submit" class="btn btn-danger">Delete</button>
-    <a class="btn btn-secondary" asp-page="List">Back</a>
-</form>
+</div>
+
 
 @functions {
     public class CreateModel: AdminPageModel
@@ -21,10 +25,14 @@
             RoleManager = roleManager;
         }
         [BindProperty][Required]
-        public string Name {get; set;}
-        public async Task<IActionResult> OnPostAsync() 
+        public IdentityRole Role {get; set;}
+        public async Task OnGetAsync(string id)
         {
-            IdentityRole role = await RoleManager.FindByNameAsync(Name);
+            Role =  await RoleManager.FindByIdAsync(id);
+        }
+        public async Task<IActionResult> OnPostAsync(string id) 
+        {
+            IdentityRole role = await RoleManager.FindByIdAsync(id);
             if (role != null)
             {
                 await RoleManager.DeleteAsync(role);
