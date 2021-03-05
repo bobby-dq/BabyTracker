@@ -1,33 +1,47 @@
 @page
 @model ListModel
-
-<table class="table table-sm table-bordered">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Members</th>
-    </tr>
-    @if (Model.Roles.Count() == 0)
-    {
-        <tr><td colspan="4" class="text-center">No Roles</td></tr>
-    }
-    else
-    {
-        foreach (IdentityRole role in Model.Roles)
-        {
+<div class="lg:w-2/3 w-full mx-auto mb-6">
+    <table class="table-auto w-full text-left whitespace-no-wrap">
+        <thead>
             <tr>
-                <td>@role.Id</td>
-                <td>@role.Name</td>
-                <td>@(await Model.GetMembersString(role.Name))</td>
-                <td class="text-center">
-                    <a class="btn btn-sm btn-warning" asp-page="Edit" asp-route-id="@role.Id">Edit</a>
-                    <a class="btn btn-sm btn-danger" asp-page="Delete" asp-route-id="@role.Id">Delete</a>
-                </td>
+                <th colspan="4" class="mx-auto px-4 text-2xl py-3 title-font tracking-wider text-center font-large text-green-500 text-sm bg-gray-500 rounded-tl rounded-tr">Roles</th>
             </tr>
-        }
-    }
-</table>
-<a class="btn btn-primary" asp-page="Create">Create</a>
+            <tr>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-green-100">ID</th>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-green-100">Name</th>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-green-100">Members</th>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-green-100">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Roles.Count() == 0)
+            {
+                <tr>
+                    <td colspan="4" class="text-center my-1 px-4 py-3 text-lg text-gray-900">No Roles</td>
+                </tr>
+            }
+            else
+            {
+                foreach (IdentityRole role in Model.Roles)
+                {
+                    <tr class="bg-gray-50">
+                        <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@role.Id</td>
+                        <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@role.Name</td>
+                        <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@(await Model.GetMembersString(role.Name))</td>
+                        <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">
+                            <a class="text-center text-yellow-500 mx-2 focus:outline-none hover:text-yellow-600 rounded" asp-page="Edit" asp-route-id="@role.Id">Edit</a>
+                            <a class="text-center text-red-500 mx-2 focus:outline-none hover:text-red-600 rounded" asp-page="Delete" asp-route-id="@role.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div class="mt-6">
+        <a class="bg-green-500 text-white hover:bg-green-600 rounded py-2 px-6" asp-page="Create">Create</a>
+    </div>
+    
+</div>
 
 @functions {
     public class ListModel: AdminPageModel

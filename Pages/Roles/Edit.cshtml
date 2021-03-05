@@ -1,68 +1,91 @@
 @page "{id}"
 @model EditModel
-<h5 class="bg-primary text-white text-center p-2">Edit Role: @Model.Role.Name</h5>
-
-<form method="post">
-    <input type="hidden" name="rolename" value="@Model.Role.Name"/>
-    <div asp-validation-summary="All" class="text-dangerr"></div>
-    <h5 class="bg-secondary text-white p-2">Members</h5>
-    <table class="table table-sm table-striped table-bordered">
-        <tbody>
-            @if ((await Model.Members()).Count() == 0)
-            {
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-20">
+      <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-green-500">Edit Role: @Model.Role.Name</h1>
+    </div>
+    <form method="post">
+        <input type="hidden" name="rolename" value="@Model.Role.Name"/>
+        <div asp-validation-summary="All" class="text-red-500"></div>
+        <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+            <table class="table-auto w-full text-left whitespace-no-wrap">
+                <thead>
                 <tr>
-                    <td colspan="3" class="text-center">No members</td>
+                    <th colspan="3" class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-large text-green-700 text-sm bg-gray-200 rounded-tl rounded-tr">Members</th>
                 </tr>
-            }
-            else
-            {
-                @foreach (IdentityUser user in await Model.Members())
-                {
-                    <tr>
-                        <td>@user.UserName</td>
-                        <td>@user.Email</td>
-                        <td>
-                            <button asp-route-userid="@user.Id" class="btn btn-primary btn-sm" type="submit">
-                                Change
-                            </button>
-                        </td>
-                    </tr>
-                    
-                }
-            }
-        </tbody>
-    </table>
-    <h5 class="bg-secondary text-white p-2">Non-Members</h5>
-    <table class="table table-sm table-striped table-bordered">
-        <tbody>
-            @if ((await Model.NonMembers()).Count() == 0)
-            {
                 <tr>
-                    <td colspan="3" class="text-center">No non-members</td>
+                    <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-green-100">Name</th>
+                    <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-green-100">Email</th>
+                    <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-green-100">Change</th>
                 </tr>
-            }
-            else
-            {
-                @foreach (IdentityUser user in await Model.NonMembers())
-                {
-                    <tr>
-                        <td>@user.UserName</td>
-                        <td>@user.Email</td>
-                        <td>
-                            <button asp-route-userid="@user.Id" class="btn btn-primary btn-sm" type="submit">
-                                Change
-                            </button>
-                    </td>
-                    </tr>
-                    
-                }
-            }
-        </tbody>
-    </table>
-
-</form>
-
-<a class="btn btn-secondary" asp-page="List">Back</a>
+                </thead>
+                <tbody>
+                @if ((await Model.Members()).Count() == 0)
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center my-1 px-4 py-3 text-lg text-gray-900">No members</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (IdentityUser user in await Model.Members())
+                        {
+                            <tr>
+                                <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@user.UserName</td>
+                                <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@user.Email</td>
+                                <td>
+                                    <button asp-route-userid="@user.Id" class="flex mx-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded" type="submit">
+                                        Change
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                        }
+                    }
+                </tbody>
+                <thead>
+                <tr>
+                    <th colspan="3" class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-large text-green-700 text-sm bg-gray-200 rounded-tl rounded-tr">Non-Members</th>
+                </tr>
+                <tr>
+                    <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-green-100">Name</th>
+                    <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-green-100">Email</th>
+                    <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-green-100">Change</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if ((await Model.NonMembers()).Count() == 0)
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center px-4 py-3 text-lg text-gray-900">No non-members</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (IdentityUser user in await Model.NonMembers())
+                        {
+                            <tr>
+                                <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@user.UserName</td>
+                                <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@user.Email</td>
+                                <td>
+                                    <button asp-route-userid="@user.Id" class="flex mx-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded" type="submit">
+                                        Change
+                                    </button>
+                            </td>
+                            </tr>
+                            
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
+            <a asp-page="List" class="text-green-500 inline-flex text-xl items-center md:mb-2 lg:mb-0">Back</a>
+        </div>
+      </form>
+    </div>
+</section>
 @functions 
 {
     public class EditModel: AdminPageModel
