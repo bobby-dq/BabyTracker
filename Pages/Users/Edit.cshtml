@@ -20,7 +20,14 @@
             </div>
             <div>
                 <button type="submit" class="text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded text-lg">Edit</button>
-                <a asp-page="@Model.ReturnPath" class="text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">Back</a>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <a asp-page="/Users/List" class="text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">Back</a>
+                }
+                else
+                {
+                    <a asp-action="Index" asp-controller="Infant" class="text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">Back</a>
+                }
                 <a asp-page="/Users/Delete" asp-route-id="@Model.Id" class="text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">Delete</a>
             </div>
             
@@ -70,7 +77,7 @@
                 UserName = user.UserName;
                 Email = user.Email;
                 Message = IsAdmin() ? $"Edit {UserName} account" : "Edit your account";
-                ReturnPath = IsAdmin() ? "/Users/List" :"/";
+                ReturnPath = IsAdmin() ? "/Users/List" :"/Infant/Index";
                 return Page();
             }
             return RedirectToPage("/Error/Error404");
@@ -98,7 +105,7 @@
                     }
                     if (result.Succeeded)
                     {
-                        return RedirectToPage(IsAdmin() ? "/Users/List" :"/");
+                        return IsAdmin() ? RedirectToPage("/Users/List"): RedirectToAction("Index", "Infant");
                     }
                     foreach (IdentityError err in result.Errors)
                     {

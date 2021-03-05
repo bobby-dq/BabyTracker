@@ -42,7 +42,7 @@
                 Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(UserName, Password, false, false);
                 if (result.Succeeded)
                 {
-                    return Redirect(ReturnUrl ?? "/");
+                    return Redirect(ReturnUrl ?? "/Infant/Index");
                 }
                 ModelState.AddModelError("", "Invalid username or password");
             }
