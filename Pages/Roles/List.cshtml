@@ -22,7 +22,7 @@
             }
             else
             {
-                foreach (IdentityRole role in Model.Roles)
+                foreach (IdentityRole role in Model.Roles.OrderBy(r => r.Name))
                 {
                     <tr class="bg-gray-50">
                         <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@role.Id</td>
@@ -40,7 +40,6 @@
     <div class="mt-6">
         <a class="bg-green-500 text-white hover:bg-green-600 rounded py-2 px-6" asp-page="Create">Create</a>
     </div>
-    
 </div>
 
 @functions {
