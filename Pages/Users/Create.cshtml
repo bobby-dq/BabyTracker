@@ -43,6 +43,7 @@
         public string ReturnPath {get; set;}
         public IActionResult OnGet()
         {
+            ReturnPath = "/";
             if(User.IsInRole("Administrator"))
             {
                 ReturnPath = "/Users/List";
@@ -51,7 +52,6 @@
             }
             if (User.Identity.IsAuthenticated)
             {
-                ReturnPath="/";
                 Message = "Create an account with us!";
                 return RedirectToPage("/Account/Logout");
             }

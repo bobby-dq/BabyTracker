@@ -1,0 +1,27 @@
+<section class="text-gray-600 body-font">
+    <div class="home-page -m-4 -p-4">
+        <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+            <img alt="logo" src="\icons\iconmonstr-generation-1-240.png">
+            <div class="text-center lg:w-2/3 w-full">
+                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Baby Tracker</h1>
+                <p class="text-2xl text-black mb-8 leading-relaxed">A web application where you can track your newborn's eating, sleeping habits, and more! <br/>Plus, its free to sign up!</p>
+                
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="flex justify-center">
+                        <a class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg" asp-action="Index" asp-controller="Dashboard">Dashboard</a>
+                        <a class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg" asp-action="Index" asp-controller="Infant">Infants</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="flex justify-center">
+                        <a class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg" asp-page="/Users/Create">Register</a>
+                        <a class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg" asp-page="/Account/Login">Login</a>
+                    </div>
+                }
+                
+            </div>
+        </div>
+    </div>
+</section>
