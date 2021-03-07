@@ -1,13 +1,13 @@
 @model NavBarUserModel
 <header class="text-gray-600 body-font shadow-md">
   <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-    <a class="flex title-font font-medium items-start text-gray-900 mb-4 md:mb-0" href="#dashboard" >
+    <a class="flex title-font font-medium items-start text-gray-900 mb-4 md:mb-0" asp-action="Index" asp-controller="Infant">
       <img class="w-10 h-10" src="\icons\iconmonstr-generation-1-240.png" alt="babytracker-logo"/>
       <span class="ml-3 text-xl">Baby Tracker <div class="text-green-500 text-xl">Welcome @Model.Name</div> </span>
     </a>
     
     <nav class="md:ml-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-      <a class="mr-5 hover:text-gray-900" asp-action="Index" asp-controller="Infant">Infants</a>
+      <a class="mr-5 hover:text-gray-900" asp-action="Create" asp-controller="Infant">Add Infant</a>
       <a class="mr-5 hover:text-gray-900" asp-page="/Account/Logout">Logout</a>
       <a class="mr-5 hover:text-gray-900" asp-page="/Users/Edit" asp-route-id="@Model.Id">Edit Account</a>
     </nav>

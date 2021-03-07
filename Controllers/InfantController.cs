@@ -30,9 +30,9 @@ namespace BabyTracker.Controllers
             {
                 return RedirectToPage("/Account/Login");
             }
+            IEnumerable<Infant> infants = context.Infants.OrderByDescending(i => i.Dob).Where(i => i.UserId == userManager.GetUserId(User));
 
-            return View("Index", context.Infants.Where(i => i.UserId == userManager.GetUserId(User)));
-
+            return View("Index", infants);
         }
         public async Task<IActionResult> Details (int id)
         {

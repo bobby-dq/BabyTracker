@@ -105,7 +105,7 @@ namespace BabyTracker.Controllers
                 diaper.Infant = default;
                 context.Diapers.Add(diaper);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", new {id = diaper.InfantId});
+                return RedirectToAction("Index","Dashboard", new {id = diaper.InfantId});
             }
             return View("DiaperEditor", DiaperViewModelFactory.Create(diaper, preSaveInfant));
         }
@@ -147,9 +147,9 @@ namespace BabyTracker.Controllers
             {
                 context.Diapers.Update(diaper);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", new {id = diaper.InfantId});
+                return RedirectToAction("Index","Dashboard", new {id = diaper.InfantId});
             }
-            return View("DiaperEditor", DiaperViewModelFactory.Edit(diaper, diaper.Infant));
+            return View("DiaperEditor", DiaperViewModelFactory.Edit(diaper, preSaveDiaper.Infant));
         }
 
         // HTTP GEt
@@ -188,7 +188,7 @@ namespace BabyTracker.Controllers
             long infantId = diaper.InfantId;
             context.Diapers.Remove(diaper);
             await context.SaveChangesAsync();
-            return RedirectToAction("Index", new {id = infantId});
+            return RedirectToAction("Index","Dashboard", new {id = infantId});
         }
     }
 }

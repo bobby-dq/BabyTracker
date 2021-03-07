@@ -108,7 +108,7 @@ namespace BabyTracker.Controllers
                 medication.Infant = default;
                 context.Medications.Add(medication);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", new {id = medication.InfantId});
+                return RedirectToAction("Index","Dashboard", new {id = medication.InfantId});
             }
             return View("MedicationEditor", MedicationViewModelFactory.Create(medication, preSaveInfant));
         }
@@ -149,7 +149,7 @@ namespace BabyTracker.Controllers
             {
                 context.Medications.Update(medication);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", new {id = medication.InfantId});
+                return RedirectToAction("Index", "Dashboard",new {id = medication.InfantId});
             }
             return View("MedicationEditor", MedicationViewModelFactory.Edit(medication, infant));
         }
@@ -188,7 +188,7 @@ namespace BabyTracker.Controllers
             long infantId = medication.InfantId;
             context.Medications.Remove(medication);
             await context.SaveChangesAsync();
-            return RedirectToAction("Index", new {id = infantId});
+            return RedirectToAction("Index","Dashboard", new {id = infantId});
         }
     }
 }

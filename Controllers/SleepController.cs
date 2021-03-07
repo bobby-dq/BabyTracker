@@ -103,7 +103,7 @@ namespace BabyTracker.Controllers
                 sleep.Infant = default;
                 context.Sleeps.Add(sleep);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", new {id = sleep.InfantId});
+                return RedirectToAction("Index","Dashboard", new {id = sleep.InfantId});
             }
             return View("SleepEditor", SleepViewModelFactory.Create(sleep, preSaveInfant));
         }
@@ -140,7 +140,7 @@ namespace BabyTracker.Controllers
             {
                 context.Sleeps.Update(sleep);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", new {id = sleep.InfantId});
+                return RedirectToAction("Index", "Dashboard",new {id = sleep.InfantId});
             }
             return View("SleepEditor", SleepViewModelFactory.Edit(sleep, infant));
         }
@@ -176,7 +176,7 @@ namespace BabyTracker.Controllers
             long infantId = sleep.InfantId;
             context.Sleeps.Remove(sleep);
             await context.SaveChangesAsync();
-            return RedirectToAction("Index", new {id = infantId});
+            return RedirectToAction("Index","Dashboard", new {id = infantId});
         }
     }
 }

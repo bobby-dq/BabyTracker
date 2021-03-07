@@ -104,7 +104,7 @@ namespace BabyTracker.Controllers
                 growth.Infant = default;
                 context.Growths.Add(growth);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", new {id = growth.InfantId});
+                return RedirectToAction("Index","Dashboard", new {id = growth.InfantId});
             }
             return View("GrowthEditor", GrowthViewModelFactory.Create(growth, preSaveInfant));
         }
@@ -147,7 +147,7 @@ namespace BabyTracker.Controllers
             {
                 context.Growths.Update(growth);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", new {id = growth.InfantId});
+                return RedirectToAction("Index","Dashboard", new {id = growth.InfantId});
             }
             return View("GrowthEditor", GrowthViewModelFactory.Edit(growth, infant));
         }
@@ -185,7 +185,7 @@ namespace BabyTracker.Controllers
             long infantId = growth.InfantId;
             context.Growths.Remove(growth);
             await context.SaveChangesAsync();
-            return RedirectToAction("Index", new {id = infantId});
+            return RedirectToAction("Index","Dashboard", new {id = infantId});
         }
     }
 }

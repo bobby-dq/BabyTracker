@@ -1,1 +1,276 @@
 @model DashboardViewModel
+<div class="mx-5 text-2xl my-2 text-center py-2 bg-green-500 rounded-lg">
+    <div class="bg-green-500 rounded">
+        <a asp-controller="Infant" asp-action="Details" asp-route-id="@Model.Infant.InfantId">
+            @Model.Infant.FirstName's Data
+        </a>
+    </div>
+    <div class="mt-2  pt-3 flex flex-wrap">
+        <a class="rounded-bl-lg -mb-2 bg-yellow-200 hover:bg-yellow-300 flex-auto p-2 text-medium text-gray-600 hover:text-gray-900" asp-controller="Infant" asp-action="Edit" asp-route-id="@Model.Infant.InfantId">Edit @Model.Infant.FirstName</a>
+        <a class="rounded-br-lg -mb-2 flex-auto p-2 bg-red-300 hover:bg-red-400 text-medium text-gray-600 hover:text-gray-900" asp-controller="Infant" asp-action="Delete" asp-route-id="@Model.Infant.InfantId">Delete @Model.Infant.FirstName</a>
+    </div>
+</div>
+<section class="text-gray-600 body-font">
+  <div class="px-5 mx-auto flex flex-wrap">
+    <div class="flex flex-wrap w-full">
+        <div class="lg:w-1/5 md:w-1/2 md:pr-10 md:py-6 ">
+            <div class="my-4">
+                <h2 class="mb-3 text-xl text-indigo-500 hover:text-indigo-600"><a asp-controller="Diaper" asp-action="Index" asp-route-id="@Model.Infant.InfantId" >Diapers</a></h2>
+                <a asp-controller="Diaper" asp-action="Create" asp-route-id="@Model.Infant.InfantId" class="py-1 px-6 text-white bg-indigo-500 hover:bg-indigo-700 rounded">Add</a>
+            </div>
+            @if(Model.Diapers.Count()==0)
+            {
+            <div class="flex relative pb-12">
+                <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+                    <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                </div>
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+                    <img class="w-7" src="\icons\diaper.png">
+                </div>
+                <div class="flex-grow pl-4">
+                    <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">No Diapers</h2>
+                </div>
+            </div>
+            }
+            else
+            {
+                @foreach (Diaper d in @Model.Diapers)
+                {
+                    <div class="flex relative pb-12">
+                        <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+                            <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                        </div>
+                        <div class="text-center flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+                            <img class="w-7" src="\icons\diaper.png">
+                        </div>
+                        <div class="flex-grow pl-4">
+                            @if (d.DiaperType == DiaperEnum.PeeAndPoo)
+                            {
+                                <a asp-controller="Diaper" asp-action="Details" asp-route-id="@d.DiaperId" class="font-medium title-font text-xl text-gray-900 mb-1 tracking-wider">Pee and Poo</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Diaper" asp-action="Details" asp-route-id="@d.DiaperId" class="font-medium title-font text-xl text-gray-900 mb-1 tracking-wider">@d.DiaperType</a>
+                            }
+                            <p class="leading-relaxed">@d.Time.ToString("hh:mm ddd tt MMM dd yyyy")</p>
+                            <div>
+                                <a class="p-2 text-medium text-indigo-500 hover:text-indigo-600" asp-controller="Diaper" asp-action="Edit" asp-route-id="@d.DiaperId">Edit</a>
+                                <a class="p-2 text-medium text-indigo-500 hover:text-indigo-600" asp-controller="Diaper" asp-action="Delete" asp-route-id="@d.DiaperId">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            } 
+        </div>
+
+
+        <div class="lg:w-1/5 md:w-1/2 md:pr-10 md:py-6 ">
+            <div class="my-4">
+                <h2 class="mb-3 text-xl text-pink-500 hover:text-pink-600"><a asp-controller="Feeding" asp-action="Index" asp-route-id="@Model.Infant.InfantId">Feeding</a></h2>
+                <a asp-controller="Feeding" asp-action="Create" asp-route-id="@Model.Infant.InfantId" class="py-1 px-6 text-white bg-pink-500 hover:bg-pink-700 rounded">Add</a>
+            </div>
+            @if(Model.Feedings.Count()==0)
+            {
+            <div class="flex relative pb-12">
+                <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+                    <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                </div>
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-pink-500 inline-flex items-center justify-center text-white relative z-10">
+                    <img class="w-7" src="\icons\feeding-bottle.png">
+                </div>
+                <div class="flex-grow pl-4">
+                    <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">No Feeding</h2>
+                </div>
+            </div>
+            }
+            else
+            {
+                @foreach (Feeding f in @Model.Feedings)
+                {
+                    <div class="flex relative pb-12">
+                        <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+                            <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                        </div>
+                        <div class="text-center flex-shrink-0 w-10 h-10 rounded-full bg-pink-500 inline-flex items-center justify-center text-white relative z-10">
+                            <img class="w-7" src="\icons\feeding-bottle.png">
+                        </div>
+                        <div class="flex-grow pl-4">
+                            @if (f.FeedType == FeedEnum.LeftBreast)
+                            {
+                                <a asp-controller="Feeding" asp-action="Details" asp-route-id="@f.FeedingId" class="font-medium title-font text-xl text-gray-900 mb-1 tracking-wider">Left Breast</a>
+                                <p class="leading-relaxed">@f.Duration minutes</p>
+                            }
+                            else if (f.FeedType == FeedEnum.RightBreast)
+                            {
+                                <a asp-controller="Feeding" asp-action="Details" asp-route-id="@f.FeedingId" class="font-medium title-font text-xl text-gray-900 mb-1 tracking-wider">Right Breast</a>
+                                <p class="leading-relaxed">@f.Duration minutes</p>
+                            }
+                            else
+                            {
+                                <a asp-controller="Feeding" asp-action="Details" asp-route-id="@f.FeedingId" class="font-medium title-font text-xl text-gray-900 mb-1 tracking-wider">@f.FeedType</a>
+                            }
+                            
+                            @if (f.FeedType == FeedEnum.Meal)
+                            {
+                                <p class="leading-relaxed">@f.Amount g</p>
+                            }
+                            else
+                            {
+                                <p class="leading-relaxed">@f.Amount ml</p>
+                            }                            
+                            
+                            <div>
+                                <a class="p-2 text-medium text-pink-500 hover:text-pink-600" asp-controller="Feeding" asp-action="Edit" asp-route-id="@f.FeedingId">Edit</a>
+                                <a class="p-2 text-medium text-pink-500 hover:text-pink-600" asp-controller="Feeding" asp-action="Delete" asp-route-id="@f.FeedingId">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            } 
+        </div>
+
+
+        <div class="lg:w-1/5 md:w-1/2 md:pr-10 md:py-6 ">
+            <div class="my-4">
+                <h2 class="mb-3 text-xl text-purple-500 hover:text-purple-600"><a asp-controller="Sleep" asp-action="Index" asp-route-id="@Model.Infant.InfantId">Sleep</a></h2>
+                <a asp-controller="Sleep" asp-action="Create" asp-route-id="@Model.Infant.InfantId" class="py-1 px-6 text-white bg-purple-500 hover:bg-purple-700 rounded">Add</a>
+            </div>
+            @if(Model.Sleeps.Count()==0)
+            {
+            <div class="flex relative pb-12">
+                <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+                    <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                </div>
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500 inline-flex items-center justify-center text-white relative z-10">
+                    <img class="w-7" src="\icons\sleep.png">
+                </div>
+                <div class="flex-grow pl-4">
+                    <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">No Sleep</h2>
+                </div>
+            </div>
+            }
+            else
+            {
+                @foreach (Sleep s in @Model.Sleeps)
+                {
+                    <div class="flex relative pb-12">
+                        <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+                            <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                        </div>
+                        <div class="text-center flex-shrink-0 w-10 h-10 rounded-full bg-purple-500 inline-flex items-center justify-center text-white relative z-10">
+                            <img class="w-7" src="\icons\sleep.png">
+                        </div>
+                        <div class="flex-grow pl-4">
+                            <a asp-controller="Sleep" asp-action="Details" asp-route-id="@s.SleepId" class="font-medium title-font text-xl text-gray-900 mb-1 tracking-wider">@s.StartTime.ToString("ddd MMM dd yyyy")</a>
+                            <p class="leading-relaxed">@s.StartTime.ToString("hh:mm tt") to @s.EndTime.ToString("hh:mm tt")</p>
+                            <p class="leading-relaxed">@(s.Duration.ToString("%h") + " hr(s) and " + s.Duration.ToString("%m") + " min(s)" )</p>
+                            <div>
+                                <a class="p-2 text-medium text-purple-500 hover:text-purple-600" asp-controller="Sleep" asp-action="Edit" asp-route-id="@s.SleepId">Edit</a>
+                                <a class="p-2 text-medium text-purple-500 hover:text-purple-600" asp-controller="Sleep" asp-action="Delete" asp-route-id="@s.SleepId">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            } 
+        </div>
+
+
+        <div class="lg:w-1/5 md:w-1/2 md:pr-10 md:py-6 ">
+            <div class="my-4">
+                <h2 class="mb-3 text-xl text-yellow-600 hover:text-yellow-700"><a asp-controller="Medication" asp-action="Index" asp-route-id="@Model.Infant.InfantId">Medication</a></h2>
+                <a asp-controller="Medication" asp-action="Create" asp-route-id="@Model.Infant.InfantId" class="py-1 px-6 text-white bg-yellow-600 hover:bg-yellow-700 rounded">Add</a>
+            </div>
+            @if(Model.Medications.Count()==0)
+            {
+            <div class="flex relative pb-12">
+                <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+                    <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                </div>
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-yellow-600 inline-flex items-center justify-center text-white relative z-10">
+                    <img class="w-7" src="\icons\drugs.png">
+                </div>
+                <div class="flex-grow pl-4">
+                    <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">No Medication</h2>
+                </div>
+            </div>
+            }
+            else
+            {
+                @foreach (Medication m in @Model.Medications)
+                {
+                    <div class="flex relative pb-12">
+                        <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+                            <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                        </div>
+                        <div class="text-center flex-shrink-0 w-10 h-10 rounded-full bg-yellow-600 hover:text-yellow-700 inline-flex items-center justify-center text-white relative z-10">
+                            <img class="w-7" src="\icons\drugs.png">
+                        </div>
+                        <div class="flex-grow pl-4">
+                            <a asp-controller="Medication" asp-action="Details" asp-route-id="@m.MedicationId" class="font-medium title-font text-xl text-gray-900 mb-1 tracking-wider">@m.MedicationType</a>
+                            <p class="leading-relaxed">@m.Date</p>
+                            <p class="leading-relaxed">@m.Description</p>
+                            <div>
+                                <a class="p-2 text-medium text-yellow-600 hover:text-yellow-700" asp-controller="Medication" asp-action="Edit" asp-route-id="@m.MedicationId">Edit</a>
+                                <a class="p-2 text-medium text-yellow-600 hover:text-yellow-700" asp-controller="Medication" asp-action="Delete" asp-route-id="@m.MedicationId">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            } 
+        </div>
+
+
+        <div class="lg:w-1/5 md:w-1/2 md:pr-10 md:py-6 ">
+            <div class="my-4">
+                <h2 class="mb-3 text-xl text-blue-400 hover:text-blue-500"><a asp-controller="Growth" asp-action="Index" asp-route-id="@Model.Infant.InfantId">Growth</a></h2>
+                <a asp-controller="Growth" asp-action="Create" asp-route-id="@Model.Infant.InfantId" class="py-1 px-6 text-white bg-blue-400 hover:bg-blue-500 rounded">Add</a>
+            </div>
+            @if(Model.Growths.Count()==0)
+            {
+            <div class="flex relative pb-12">
+                <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+                    <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                </div>
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-400 inline-flex items-center justify-center text-white relative z-10">
+                    <img class="w-7" src="\icons\tape-measure.png">
+                </div>
+                <div class="flex-grow pl-4">
+                    <h2 class="font-medium title-font text-sm text-gray-900 mb-1 tracking-wider">No Growth</h2>
+                </div>
+            </div>
+            }
+            else
+            {
+                @foreach (Growth g in @Model.Growths)
+                {
+                    <div class="flex relative pb-12">
+                        <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+                            <div class="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                        </div>
+                        <div class="text-center flex-shrink-0 w-10 h-10 rounded-full bg-blue-400 hover:text-blue-500 inline-flex items-center justify-center text-white relative z-10">
+                            <img class="w-7" src="\icons\tape-measure.png">
+                        </div>
+                        <div class="flex-grow pl-4">
+                            <a asp-controller="Growth" asp-action="Details" asp-route-id="@g.GrowthId" class="font-medium title-font text-xl text-gray-900 mb-1 tracking-wider">@g.GrowthType</a>
+                            <p class="leading-relaxed">@g.Date.ToString("ddd MMM dd yyyy")</p>
+                            @if (g.GrowthType == GrowthEnum.Height)
+                            {
+                                <p class="leading-relaxed">@g.Amount cm</p>
+                            }
+                            else
+                            {
+                                <p class="leading-relaxed">@g.Amount kg</p>
+                            }
+                            
+                            <div>
+                                <a class="p-2 text-medium text-blue-400 hover:text-blue-500" asp-controller="Growth" asp-action="Edit" asp-route-id="@g.GrowthId">Edit</a>
+                                <a class="p-2 text-medium text-blue-400 hover:text-blue-500" asp-controller="Growth" asp-action="Delete" asp-route-id="@g.GrowthId">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            } 
+        </div>
+    </div>
+  </div>
+</section>

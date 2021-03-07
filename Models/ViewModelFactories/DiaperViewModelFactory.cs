@@ -12,7 +12,6 @@ namespace BabyTracker.Models.ViewModelFactories
                 Infant = infant,
                 Action = "Details",
                 ReadOnly = true,
-                Theme = "info",
                 ShowAction = false
                 
             };
@@ -34,7 +33,7 @@ namespace BabyTracker.Models.ViewModelFactories
                 Diaper = diaper,
                 Infant = infant,
                 Action = "Edit",
-                Theme = "warning",
+                ActionTheme = "text-white bg-yellow-500 hover:bg-yellow-600"
             };
         }
 

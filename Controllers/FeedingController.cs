@@ -100,7 +100,7 @@ namespace BabyTracker.Controllers
                 feeding.Infant = default;
                 context.Feedings.Add(feeding);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", new {id = feeding.InfantId});
+                return RedirectToAction("Index","Dashboard", new {id = feeding.InfantId});
             }
             return View("FeedingEditor", FeedingViewModelFactory.Create(feeding, preSaveInfant));
         }
@@ -138,9 +138,9 @@ namespace BabyTracker.Controllers
             {
                 context.Feedings.Update(feeding);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", new {id = feeding.InfantId});
+                return RedirectToAction("Index","Dashboard", new {id = feeding.InfantId});
             }
-            return View("FeedingEditor", FeedingViewModelFactory.Edit(feeding, feeding.Infant));
+            return View("FeedingEditor", FeedingViewModelFactory.Edit(feeding, preSaveFeeding.Infant));
         }
 
         // HTTP GEt
@@ -174,7 +174,7 @@ namespace BabyTracker.Controllers
             long infantId = feeding.InfantId;
             context.Feedings.Remove(feeding);
             await context.SaveChangesAsync();
-            return RedirectToAction("Index", new {id = infantId});
+            return RedirectToAction("Index","Dashboard", new {id = infantId});
         }
     }
 }
