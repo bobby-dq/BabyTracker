@@ -1,37 +1,85 @@
 ﻿@model IEnumerable<Feeding>
 
-<h4 class="text-center bg-info p-2">Feeding</h4>
-<div class="table-responsive">  
-    <table class="table table-sm table-striped">
+<div class="lg:w-2/3 w-full mx-auto mb-6 shadow-lg">
+    <table class="table-auto w-full text-left whitespace-no-wrap">
         <thead>
             <tr>
-                <th>Infant</th>
-                <th>Feed Type</th>
-                <th>Amount</th>
-                <th>Start Time</th>
-                <th>Duration</th>
+                <th colspan="5" class="mx-auto px-4 text-2xl py-3 title-font tracking-wider text-center font-large text-white text-sm bg-pink-500 rounded-tl rounded-tr">@ViewData["InfantName"]'s Feeding</th>
+            </tr>
+            <tr>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-pink-100"><a>Feeding Type</th>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-pink-100">Start Time</th>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-pink-100">Duration</th>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-pink-100">Amount</th>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-pink-100">Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (Feeding f in Model)
+            @if (Model.Count() == 0)
             {
                 <tr>
-                    <td>@f.Infant.FirstName</td>
-                    <td>@f.FeedType.GetDescription()</td>
-                    <td>@f.Amount</td>
-                    <td>@f.StartTime.ToString("HH:mm ddd dd MMM yyyy")</td>
-                    <td>@f.Duration</td>
-                    <td class="text-center">
-                        <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@f.FeedingId">Details</a>
-                        <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@f.FeedingId">Edit</a>
-                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@f.FeedingId">Delete</a>
-                    </td>
-                </tr> 
+                    <td colspan="4" class="text-center my-1 px-4 py-3 text-lg text-gray-900">No Feeding</td>
+                </tr>
+            }
+            else
+            {
+                foreach (Feeding f in Model.OrderByDescending(d => d.StartTime))
+                {
+                    <tr class="bg-gray-50">
+                        @if (f.FeedType == FeedEnum.LeftBreast)
+                        {
+                            <td class="text-center my-1 px-4 py-3 text-lg text-gray-900"><a asp-action="Details" asp-route-id="@f.FeedingId">Left Breast</a></td>
+                        }
+                        else if (f.FeedType == FeedEnum.RightBreast)
+                        {
+                            <td class="text-center my-1 px-4 py-3 text-lg text-gray-900"><a asp-action="Details" asp-route-id="@f.FeedingId">Right Breast</a></td>
+                        }
+                        else
+                        {
+                            <td class="text-center my-1 px-4 py-3 text-lg text-gray-900"><a asp-action="Details" asp-route-id="@f.FeedingId">@f.FeedType (@f.Description)</a></td>
+                        }
+                        
+                        <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@f.StartTime.ToString("hh:mm ddd tt MMM dd yyyy")</td>
+                        
+                        @if (f.FeedType == FeedEnum.LeftBreast || f.FeedType == FeedEnum.RightBreast)
+                        {
+                            <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@f.Duration minutes</td>
+                        }
+                        else
+                        {
+                            <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">N/A</td>
+                        }
+                        @if (f.FeedType == FeedEnum.Bottle)
+                        {
+                            <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@f.Amount ml</td>
+                        }
+                        else if (f.FeedType == FeedEnum.Meal)
+                        {
+                            <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@f.Amount g</td>
+                        }
+                        else
+                        {
+                            <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">N/A</td>
+                        }
+                        <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">
+                            <a class="text-center text-yellow-500 mx-2 focus:outline-none hover:text-yellow-600 rounded" asp-action="Edit" asp-route-id="@f.FeedingId">Edit</a>
+                            <a class="text-center text-red-500 mx-2 focus:outline-none hover:text-red-600 rounded" asp-action="Delete" asp-route-id="@f.FeedingId">Delete</a>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
-</div>
-<div>
-    <a class="btn btn-sm btn-primary" asp-controller="Infant" asp-action="Index">Back</a>
-    <a class="btn btn-sm btn-primary" asp-action="Create" asp-route-id="@ViewBag.Id">Create</a>
+    <div class="text-center">
+        <div class="">
+            <a asp-action="Create" asp-route-id="@ViewBag.Id">
+                <div class="p-2 bg-pink-500 text-white hover:bg-pink-600"  class="w-full">Add Feeding</div>
+            </a>
+        </div>
+        <div class="">
+            <a asp-controller="Dashboard" asp-route-id="@ViewBag.Id" asp-route-id="@ViewBag.Id">
+                <div class="p-2 bg-pink-500 text-white hover:bg-pink-600 rounded-b-lg" class="w-full">Back to @ViewData["InfantName"]'s Dashboard</div>
+            </a>
+        </div>
+    </div>
 </div>

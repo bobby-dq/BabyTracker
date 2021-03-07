@@ -1,35 +1,60 @@
 @model IEnumerable<Growth>
 
-<h4 class="text-center bg-info p-2">Feeding</h4>
-<div class="table-responsive">  
-    <table class="table table-sm table-striped">
+<div class="lg:w-2/3 w-full mx-auto mb-6 shadow-lg">
+    <table class="table-auto w-full text-left whitespace-no-wrap">
         <thead>
             <tr>
-                <th>Infant</th>
-                <th>Growth Type</th>
-                <th>Amount</th>
-                <th>Date</th>
+                <th colspan="4" class="mx-auto px-4 text-2xl py-3 title-font tracking-wider text-center font-large text-white text-sm bg-blue-400 rounded-tl rounded-tr">@ViewData["InfantName"]'s Growths</th>
+            </tr>
+            <tr>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-blue-100"><a>Growth Type</th>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-blue-100">Date</th>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-blue-100">Amount</th>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-blue-100">Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (Growth g in Model)
+            @if (Model.Count() == 0)
             {
                 <tr>
-                    <td>@g.Infant.FirstName</td>
-                    <td>@g.GrowthType.GetDescription()</td>
-                    <td>@g.Amount</td>
-                    <td>@g.Date.ToString("ddd dd MMM yyyy")</td>
-                    <td class="text-center">
-                        <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@g.GrowthId">Details</a>
-                        <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@g.GrowthId">Edit</a>
-                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@g.GrowthId">Delete</a>
-                    </td>
-                </tr> 
+                    <td colspan="4" class="text-center my-1 px-4 py-3 text-lg text-gray-900">No Growths</td>
+                </tr>
+            }
+            else
+            {
+                foreach (Growth g in Model.OrderByDescending(g => g.Date))
+                {
+                    <tr class="bg-gray-50">
+                        <td class="text-center my-1 px-4 py-3 text-lg text-gray-900"><a asp-action="Details" asp-route-id="@g.GrowthId">@g.GrowthType</a></td>
+                        <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@g.Date.ToString("MMM dd yyyy")</td>
+                        @if (g.GrowthType == GrowthEnum.Height)
+                        {
+                            <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@g.Amount cm</td>
+                        }
+                        else
+                        {
+                            <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@g.Amount kg</td>
+                        }
+                        <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">
+                            <a class="text-center text-yellow-500 mx-2 focus:outline-none hover:text-yellow-600 rounded" asp-action="Edit" asp-route-id="@g.GrowthId">Edit</a>
+                            <a class="text-center text-red-500 mx-2 focus:outline-none hover:text-red-600 rounded" asp-action="Delete" asp-route-id="@g.GrowthId">Delete</a>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
+    <div class="text-center">
+        <div class="">
+            <a asp-action="Create" asp-route-id="@ViewBag.Id">
+                <div class="p-2 bg-blue-400 text-white hover:bg-blue-500"  class="w-full">Add Growth</div>
+            </a>
+        </div>
+        <div class="">
+            <a asp-controller="Dashboard" asp-route-id="@ViewBag.Id">
+                <div class="p-2 bg-blue-400 text-white hover:bg-blue-500 rounded-b-lg" class="w-full">Back to @ViewData["InfantName"]'s Dashboard</div>
+            </a>
+        </div>
+    </div>
 </div>
-<div>
-    <a class="btn btn-sm btn-primary" asp-controller="Infant" asp-action="Index">Back</a>
-    <a class="btn btn-sm btn-primary" asp-action="Create" asp-route-id="@ViewBag.Id">Create</a>
-</div>
+

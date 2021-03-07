@@ -1,34 +1,57 @@
 @model IEnumerable<Diaper>
 
-<h4 class="text-center bg-info p-2">@ViewData["InfantName"] Diapers</h4>
-<div>
-    <table class="table table-sm table-striped">
+<div class="lg:w-2/3 w-full mx-auto mb-6 shadow-lg">
+    <table class="table-auto w-full text-left whitespace-no-wrap">
         <thead>
             <tr>
-                <th>Infant</th>
-                <th>Diaper Type</th>
-                <th>Time</th>
+                <th colspan="4" class="mx-auto px-4 text-2xl py-3 title-font tracking-wider text-center font-large text-white text-sm bg-indigo-500 rounded-tl rounded-tr">@ViewData["InfantName"]'s Diapers</th>
+            </tr>
+            <tr>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-indigo-100"><a>Diaper Type</th>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-indigo-100">Time</th>
+                <th class="mx-auto px-4 text-xl py-3 title-font tracking-wider text-center font-medium text-gray-700 text-sm bg-indigo-100">Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (Diaper d in Model)
+            @if (Model.Count() == 0)
             {
                 <tr>
-                    <td>@d.Infant.FirstName</td>
-                    <td>@d.DiaperType.GetDescription()</td>
-                    <td>@d.Time.ToString("HH:mm ddd dd MMM yyyy")</td>
-                    <td class="text-center">
-                        <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@d.DiaperId">Details</a>
-                        <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@d.DiaperId">Edit</a>
-                        <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@d.DiaperId">Delete</a>
-                    </td>
+                    <td colspan="4" class="text-center my-1 px-4 py-3 text-lg text-gray-900">No Diapers</td>
                 </tr>
+            }
+            else
+            {
+                foreach (Diaper d in Model.OrderByDescending(d => d.Time))
+                {
+                    <tr class="bg-gray-50">
+                        @if (d.DiaperType == DiaperEnum.PeeAndPoo)
+                        {
+                            <td class="text-center my-1 px-4 py-3 text-lg text-gray-900"><a asp-action="Details" asp-route-id="@d.DiaperId">Pee and Poo</a></td>
+                        }
+                        else
+                        {
+                            <td class="text-center my-1 px-4 py-3 text-lg text-gray-900"><a asp-action="Details" asp-route-id="@d.DiaperId">@d.DiaperType</a></td>
+                        }
+                        <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">@d.Time.ToString("hh:mm ddd tt MMM dd yyyy")</td>
+                        <td class="text-center my-1 px-4 py-3 text-lg text-gray-900">
+                            <a class="text-center text-yellow-500 mx-2 focus:outline-none hover:text-yellow-600 rounded" asp-action="Edit" asp-route-id="@d.DiaperId">Edit</a>
+                            <a class="text-center text-red-500 mx-2 focus:outline-none hover:text-red-600 rounded" asp-action="Delete" asp-route-id="@d.DiaperId">Delete</a>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
+    <div class="text-center">
+        <div class="">
+            <a asp-action="Create" asp-route-id="@ViewBag.Id">
+                <div class="p-2 bg-indigo-500 text-white hover:bg-indigo-600"  class="w-full">Add Diaper</div>
+            </a>
+        </div>
+        <div class="">
+            <a asp-controller="Dashboard" asp-action="Index" asp-route-id="@ViewBag.Id" asp-route-id="@ViewBag.Id">
+                <div class="p-2 bg-indigo-500 text-white hover:bg-indigo-600 rounded-b-lg" class="w-full">Back to @ViewData["InfantName"]'s Dashboard</div>
+            </a>
+        </div>
+    </div>
 </div>
-<div>
-    <a class="btn btn-sm btn-primary" asp-controller="Infant" asp-action="Index">Back</a>
-    <a class="btn btn-sm btn-primary" asp-action="Create" asp-route-id="@ViewBag.Id">Create</a>
-</div>
-

@@ -95,27 +95,33 @@
                             <img class="w-7" src="\icons\feeding-bottle.png">
                         </div>
                         <div class="flex-grow pl-4">
+
                             @if (f.FeedType == FeedEnum.LeftBreast)
                             {
                                 <a asp-controller="Feeding" asp-action="Details" asp-route-id="@f.FeedingId" class="font-medium title-font text-xl text-gray-900 mb-1 tracking-wider">Left Breast</a>
+                                <p class="leading-relaxed">@f.StartTime.ToString("hh:mm ddd tt MMM dd yyyy")</p>
                                 <p class="leading-relaxed">@f.Duration minutes</p>
                             }
                             else if (f.FeedType == FeedEnum.RightBreast)
                             {
                                 <a asp-controller="Feeding" asp-action="Details" asp-route-id="@f.FeedingId" class="font-medium title-font text-xl text-gray-900 mb-1 tracking-wider">Right Breast</a>
+                                <p class="leading-relaxed">@f.StartTime.ToString("hh:mm ddd tt MMM dd yyyy")</p>
                                 <p class="leading-relaxed">@f.Duration minutes</p>
-                            }
+                            }   
                             else
                             {
                                 <a asp-controller="Feeding" asp-action="Details" asp-route-id="@f.FeedingId" class="font-medium title-font text-xl text-gray-900 mb-1 tracking-wider">@f.FeedType</a>
+                                <p class="leading-relaxed">@f.StartTime.ToString("hh:mm ddd tt MMM dd yyyy")</p>
                             }
-                            
+
                             @if (f.FeedType == FeedEnum.Meal)
                             {
+                                <p class="leading-relaxed">@f.Description</p>
                                 <p class="leading-relaxed">@f.Amount g</p>
                             }
-                            else
+                            else if (f.FeedType == FeedEnum.Bottle)
                             {
+                                <p class="leading-relaxed">@f.Description</p>
                                 <p class="leading-relaxed">@f.Amount ml</p>
                             }                            
                             
