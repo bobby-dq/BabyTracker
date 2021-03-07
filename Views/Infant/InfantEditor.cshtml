@@ -23,6 +23,18 @@
                 <div><span asp-validation-for="Infant.FirstName" class="text-red-600"></span></div>
                 <input asp-for="Infant.FirstName" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
             </div>
+
+            <div class="relative mb-4">
+                <label asp-for="Infant.LastName" class="text-black"></label>
+                <div><span asp-validation-for="Infant.LastName" class="text-red-600"></span></div>
+                <input asp-for="Infant.LastName" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            </div>
+
+            <div class="relative mb-4">
+                <label asp-for="Infant.Dob" class="text-black"></label>
+                <div><span asp-validation-for="Infant.Dob" class="text-red-600"></span></div>
+                <input asp-for="Infant.Dob" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            </div>
             <div class="-mb-8 -mx-8 text-center ">
                 @if (Model.ShowAction)
                 {
@@ -30,43 +42,29 @@
                 }            
             </div>
         </form>
-        <a asp-action="Index" asp-controller="Dashboard" asp-route-id="@Model.Infant.InfantId">
-            <button class="text-white @Model.ActionTheme order-0 w-full py-2 px-6 focus:outline-none text-lg">Back</button>
-        </a>  
+        <a>
+            
+        </a>
+        @if (Model.Action == "Create")
+        {
+            <div class="-mx-8 mt-8 -mb-8 bg-gray-500 text-white text-center hover:bg-gray-600 rounded-b-lg">
+            <a asp-action="Index" asp-controller="Infant">
+                <div class="w-full order-0 py-1 px-6 focus:outline-none text-lg">Infants</div>
+            </a>  
+            </div>
+        }
+        else
+        {
+            <div class="-mx-8 mt-8 -mb-8 bg-gray-500 text-white text-center hover:bg-gray-600" >
+            <a asp-action="Index" asp-controller="Infant">
+                <div class="w-full order-0 py-1 px-6 focus:outline-none text-lg">Infants</div>
+            </a>  
+            </div>
+            <div class="-mx-8 mt-8 -mb-8 text-center bg-green-500 hover:bg-green-400 rounded-b-lg" >
+                <a asp-action="Index" asp-controller="Dashboard" asp-route-id="@Model.Infant.InfantId">
+                    <div class="w-full order-0 py-1 px-6 focus:outline-none text-lg">Dashboard: @Model.Infant.FirstName</div>
+                </a>  
+            </div>
+        }  
     </div>
 </div>
-
-
-
-<h5 class="bg-@Model.Theme text-white text-center p-2" >@Model.Action</h5>
-
-<form asp-action="@Model.Action" method="post">
-
-    <div class="form-group">
-        <label asp-for="Infant.FirstName"></label>
-        <div>
-            <span asp-validation-for="Infant.FirstName" class="text-danger"></span>
-        </div>
-        <input class="form-control" asp-for="Infant.FirstName" readonly="@Model.ReadOnly"/>
-    </div>
-    <div class="form-group">
-        <label asp-for="Infant.LastName"></label>
-        <div>
-            <span asp-validation-for="Infant.LastName" class="text-danger"></span>
-        </div>
-        <input class="form-control" asp-for="Infant.LastName" readonly="@Model.ReadOnly"/>
-    </div>
-    <div class="form-group">
-        <label asp-for="Infant.Dob"></label>
-        <div>
-            <span asp-validation-for="Infant.Dob" class="text-danger"></span>
-        </div>
-        <input class="form-control" asp-for="Infant.Dob" readonly="@Model.ReadOnly" asp-format="{0:yyyy-MM-dd}"/>
-    </div>
-    
-    @if (Model.ShowAction)
-    {
-        <button class="btn btn-@Model.Theme" type="submit">@Model.Action</button>
-    }
-    <a class="btn btn-secondary" asp-action="Index">Back</a>
-</form>
