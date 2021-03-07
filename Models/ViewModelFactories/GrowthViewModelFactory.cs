@@ -34,6 +34,7 @@ namespace BabyTracker.Models.ViewModelFactories
                 Infant = infant,
                 ActionTheme = "text-white bg-yellow-500 hover:bg-yellow-600",
                 Theme = "warning",
+                Action="Edit"
             };
         }
 
