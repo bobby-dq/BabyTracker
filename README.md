@@ -1,6 +1,7 @@
 # Welcome to the Baby Tracker App
 A web application that you can use to track your newborn's bowel, eating, and sleeping habits.
 ## News and Updates
+    07-Mar-2021 "Updated the editor and index pages for the entity models, as well as a infant dashboard."
     02-Mar-2021 "Created CRUD operations for entity models, implemented users and roles from AspNet Idenitity, and implemented AuthN and AuthZ on controllers and razor pages."
     16-Feb-2021 "Started the model property validations, as well as the infant view model factory."
     13-Feb-2021 "Migrated the database seed data and initialized the database connection string."
