@@ -2,68 +2,85 @@
 
 <partial name="_Validation"/>
 
-<h5>@Model.Infant.FirstName: Feeding @Model.Action</h5>
+<div class="container px-5 py-24 mx-auto flex">
+    <div class="bg-pink-50 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+        <div class="text-center">
+            <h2 class="-m-8 p-4 rounded-t-lg text-gray-900 bg-pink-500 text-2xl mb-1 font-medium title-font" > @Model.Action: @Model.Infant.FirstName's Feedings</h2>
+        </div>
 
-<form asp-action="@Model.Action" method="post">
-    <div class="form-group">
-        <div>
-            <span asp-validation-for="Feeding.InfantId" class="text-danger"></span>
+        <form asp-action="@Model.Action" method="post">
+            <div class="relative mb-4">
+                <div>
+                    <span asp-validation-for="Feeding.InfantId" class="text-red-600"></span>
+                </div>
+                <input type="hidden" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" asp-for="Feeding.InfantId" readonly/>
+            </div>
+            <div class="relative mb-4">
+                <div>
+                    <span asp-validation-for="Feeding.FeedingId" class="text-red-600"></span>
+                </div>
+                <input type="hidden" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" asp-for="Feeding.FeedingId" readonly/>
+            </div>
+            <div class="relative mb-4">
+                <label asp-for="Feeding.FeedType"></label>
+                <div>
+                    <span asp-validation-for="Feeding.FeedType" class="text-red-600"></span>
+                </div>
+                <select asp-for="Feeding.FeedType" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" disabled="@Model.ReadOnly" asp-items="@Html.GetEnumSelectList<FeedEnum>()">
+                    <option value="" disabled selected>Choose a Feeding Type</option>
+                </select>
+            </div>
+            <div class="relative mb-4">
+                <label asp-for="Feeding.Amount"></label>
+                <div>
+                    <span asp-validation-for="Feeding.Amount" class="text-red-600"></span>
+                </div>
+                <input class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" asp-for="Feeding.Amount" readonly="@Model.ReadOnly"/>
+            </div>
+            <div class="relative mb-4p">
+                <label asp-for="Feeding.StartTime"></label>
+                <div>
+                    <span asp-validation-for="Feeding.StartTime" class="text-red-600"></span>
+                </div>
+                <input class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" asp-for="Feeding.StartTime" readonly="@Model.ReadOnly" asp-format="{0:yyyy-MM-ddTHH:mm}"/>
+            </div>
+            <div class="relative mb-4p">
+                <label asp-for="Feeding.Duration"></label>
+                <div>
+                    <span asp-validation-for="Feeding.Duration" class="text-red-600"></span>
+                </div>
+                <input class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" asp-for="Feeding.Duration" readonly="@Model.ReadOnly"/>        
+            </div>
+            <div class="relative mb-4">
+                <label asp-for="Feeding.Description"></label>
+                <div>
+                    <span asp-validation-for="Feeding.Description" class="text-red-600"></span>
+                </div>
+                <input class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" asp-for="Feeding.Description" readonly="@Model.ReadOnly"/>
+            </div>
+            <div class="relative mb-4">
+                <label asp-for="Feeding.Comments"></label>
+                <div>
+                    <span asp-validation-for="Feeding.Comments" class="text-red-600"></span>
+                </div>
+                <input class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" asp-for="Feeding.Comments" readonly="@Model.ReadOnly"/>
+            </div>
+            <div class="-mb-8 -mx-8 text-center ">
+                @if (Model.ShowAction)
+                {
+                    <button class="text-white @Model.ActionTheme order-0 w-full py-2 px-6 focus:outline-none text-lg" type="submit">@Model.Action</button>
+                }            
+            </div>
+        </form>
+        <div class="-mx-8 mt-8 -mb-8 bg-gray-500 text-white text-center hover:bg-gray-600" >
+            <a asp-action="Index" asp-controller="Feeding" asp-route-id="@Model.Infant.InfantId">
+                <div class="w-full order-0 py-1 px-6 focus:outline-none text-lg">@Model.Infant.FirstName Diapers</div>
+            </a>  
         </div>
-        <input type="hidden" class="form-control" asp-for="Feeding.InfantId" readonly/>
-    </div>
-    <div class="form-group">
-        <div>
-            <span asp-validation-for="Feeding.FeedingId" class="text-danger"></span>
+        <div class="-mx-8 mt-8 -mb-8 text-center text-white bg-pink-500 hover:bg-pink-600 rounded-b-lg" >
+            <a asp-action="Index" asp-controller="Dashboard" asp-route-id="@Model.Infant.InfantId">
+                <div class="w-full order-0 py-1 px-6 focus:outline-none text-lg">Back to @Model.Infant.FirstName's Dashboard</div>
+            </a>  
         </div>
-        <input type="hidden" class="form-control" asp-for="Feeding.FeedingId" readonly/>
     </div>
-    <div class="form-group">
-        <label asp-for="Feeding.FeedType"></label>
-        <div>
-            <span asp-validation-for="Feeding.FeedType" class="text-danger"></span>
-        </div>
-        <select asp-for="Feeding.FeedType" class="form-control" disabled="@Model.ReadOnly" asp-items="@Html.GetEnumSelectList<FeedEnum>()">
-            <option value="" disabled selected>Choose a Feeding Type</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="Feeding.Amount"></label>
-        <div>
-            <span asp-validation-for="Feeding.Amount" class="text-danger"></span>
-        </div>
-        <input class="form-control" asp-for="Feeding.Amount" readonly="@Model.ReadOnly"/>
-    </div>
-    <div class="form-group">
-        <label asp-for="Feeding.StartTime"></label>
-        <div>
-            <span asp-validation-for="Feeding.StartTime" class="text-danger"></span>
-        </div>
-        <input class="form-control" asp-for="Feeding.StartTime" readonly="@Model.ReadOnly" asp-format="{0:yyyy-MM-ddTHH:mm}"/>
-    </div>
-    <div class="form-group">
-        <label asp-for="Feeding.Duration"></label>
-        <div>
-            <span asp-validation-for="Feeding.Duration" class="text-danger"></span>
-        </div>
-        <input class="form-control" asp-for="Feeding.Duration" readonly="@Model.ReadOnly"/>        
-    </div>
-    <div class="form-group">
-        <label asp-for="Feeding.Description"></label>
-        <div>
-            <span asp-validation-for="Feeding.Description" class="text-danger"></span>
-        </div>
-        <input class="form-control" asp-for="Feeding.Description" readonly="@Model.ReadOnly"/>
-    </div>
-    <div class="form-group">
-        <label asp-for="Feeding.Comments"></label>
-        <div>
-            <span asp-validation-for="Feeding.Comments" class="text-danger"></span>
-        </div>
-        <input class="form-control" asp-for="Feeding.Comments" readonly="@Model.ReadOnly"/>
-    </div>
-    @if (Model.ShowAction)
-    {
-        <button class="btn btn-@Model.Theme" type="submit">@Model.Action</button>
-    }
-    <a class="btn btn-secondary" asp-action="Index" asp-route-id="@Model.Infant.InfantId">Back</a>
-</form>
+</div>

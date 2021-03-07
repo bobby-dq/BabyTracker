@@ -2,54 +2,70 @@
 
 <partial name="_Validation"/>
 
-<h5 class="bg-@Model.Theme text-white text-center p-2">@Model.Infant.FirstName: Diaper @Model.Action</h5>
+<div class="container px-5 py-24 mx-auto flex">
+    <div class="bg-indigo-50 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+        <div class="text-center">
+            <h2 class="-m-8 p-4 rounded-t-lg text-gray-900 bg-indigo-500 text-2xl mb-1 font-medium title-font" > @Model.Action: @Model.Infant.FirstName's Diaper</h2>
+        </div>
+        <form method="post" asp-action="@Model.Action">
+            <div class="relative mb-4">
+                <div><span asp-validation-for="Diaper.DiaperId" class="text-red-600"></span></div>
+                <input type="hidden" asp-for="Diaper.DiaperId" readonly class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            </div>
 
-<form asp-action="@Model.Action" method="post">
-    <div class="form-group">
-        <div>
-            <span asp-validation-for="Diaper.DiaperId" class="text-danger"></span>
+            <div class="relative mb-4">
+                <div><span asp-validation-for="Diaper.InfantId" class="text-red-600"></span></div>
+                <input type="hidden" asp-for="Diaper.InfantId" readonly class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            </div>
+
+            <div class="relative mb-4">
+                <label asp-for="Diaper.DiaperType"></label>
+                <div>
+                    <span asp-validation-for="Diaper.DiaperType" class="text-red-600"></span>
+                </div>
+                <select asp-for="Diaper.DiaperType" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" disabled="@Model.ReadOnly" asp-items="@Html.GetEnumSelectList<DiaperEnum>()">
+                    <option value="" disabled selected>Choose a Diaper Type</option>
+                </select>
+            </div>
+
+            <div class="relative mb-4">
+                <label class="text-black" asp-for="Diaper.Time"></label>
+                <div><span asp-validation-for="Diaper.Time" class="text-red-600"></span></div>
+                <input asp-for="Diaper.Time" readonly="@Model.ReadOnly" asp-format="{0:yyyy-MM-ddTHH:mm}" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
+            </div>
+
+            <div class="relative mb-4">
+                <label class="text-black" asp-for="Diaper.Description"></label>
+                <div>
+                    <span asp-validation-for="Diaper.Description" class="text-red-600"></span>
+                </div>
+                <input asp-for="Diaper.Description" readonly="@Model.ReadOnly" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
+            </div>
+
+            <div class="relative mb-4">
+                <label class="text-black" asp-for="Diaper.Comments"></label>
+                <div>
+                    <span asp-validation-for="Diaper.Comments" class="text-red-600"></span>
+                </div>
+                <input asp-for="Diaper.Comments" readonly="@Model.ReadOnly" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
+            </div>
+
+            <div class="-mb-8 -mx-8 text-center ">
+                @if (Model.ShowAction)
+                {
+                    <button class="text-white @Model.ActionTheme order-0 w-full py-2 px-6 focus:outline-none text-lg" type="submit">@Model.Action</button>
+                }            
+            </div>
+        </form>
+        <div class="-mx-8 mt-8 -mb-8 bg-gray-500 text-white text-center hover:bg-gray-600" >
+            <a asp-action="Index" asp-controller="Diaper" asp-route-id="@Model.Infant.InfantId">
+                <div class="w-full order-0 py-1 px-6 focus:outline-none text-lg">@Model.Infant.FirstName Diapers</div>
+            </a>  
         </div>
-        <input type="hidden" class="form-control" asp-for="Diaper.DiaperId" readonly/>
-    </div>
-    <div class="form-group">
-        <div>
-            <span asp-validation-for="Diaper.InfantId" class="text-danger"></span>
+        <div class="-mx-8 mt-8 -mb-8 text-center text-white bg-indigo-500 hover:bg-indigo-600 rounded-b-lg" >
+            <a asp-action="Index" asp-controller="Dashboard" asp-route-id="@Model.Infant.InfantId">
+                <div class="w-full order-0 py-1 px-6 focus:outline-none text-lg">Back to @Model.Infant.FirstName's Dashboard</div>
+            </a>  
         </div>
-        <input type="hidden" class="form-control" asp-for="Diaper.InfantId" readonly/>
     </div>
-    <div class="form-group">
-        <label asp-for="Diaper.DiaperType"></label>
-        <div>
-            <span asp-validation-for="Diaper.DiaperType" class="text-danger"></span>
-        </div>
-        <select asp-for="Diaper.DiaperType" class="form-control" disabled="@Model.ReadOnly" asp-items="@Html.GetEnumSelectList<DiaperEnum>()">
-            <option value="" disabled selected>Choose a Diaper Type</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="Diaper.Time"></label>
-        <div>
-            <span asp-validation-for="Diaper.Time" class="text-danger"></span>
-        </div>
-        <input class="form-control" asp-for="Diaper.Time" readonly="@Model.ReadOnly" asp-format="{0:yyyy-MM-ddTHH:mm}"/>
-    </div>
-    <div class="form-group">
-        <label asp-for="Diaper.Description"></label>
-        <div>
-            <span asp-validation-for="Diaper.Description" class="text-danger"></span>
-        </div>
-        <input class="form-control" asp-for="Diaper.Description" readonly="@Model.ReadOnly"/>
-    </div>
-    <div class="form-group">
-        <label asp-for="Diaper.Comments"></label>
-        <div>
-            <span asp-validation-for="Diaper.Comments" class="text-danger"></span>
-        </div>
-        <input class="form-control" asp-for="Diaper.Comments" readonly="@Model.ReadOnly"/>
-    </div>
-    @if (Model.ShowAction)
-    {
-        <button class="btn btn-@Model.Theme" type="submit">@Model.Action</button>
-    }
-    <a class="btn btn-secondary" asp-action="Index" asp-route-id="@Model.Infant.InfantId">Back</a>
-</form>
+</div>
