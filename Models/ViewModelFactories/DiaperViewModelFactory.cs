@@ -32,8 +32,8 @@ namespace BabyTracker.Models.ViewModelFactories
             {
                 Diaper = diaper,
                 Infant = infant,
-                Action = "Edit",
-                ActionTheme = "text-white bg-yellow-500 hover:bg-yellow-600"
+                ActionTheme = "text-white bg-yellow-500 hover:bg-yellow-600",
+                Action = "Edit"
             };
         }
 
@@ -45,7 +45,7 @@ namespace BabyTracker.Models.ViewModelFactories
                 Infant = infant,
                 Action = "Delete",
                 ReadOnly = true,
-                Theme = "danger",
+                ActionTheme = "text-white bg-red-600 hover:bg-red-700",
                 ShowAction = true
             };
         }

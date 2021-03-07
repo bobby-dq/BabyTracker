@@ -12,7 +12,6 @@ namespace BabyTracker.Models.ViewModelFactories
                 Infant = infant,
                 Action = "Details",
                 ReadOnly = true,
-                Theme = "info",
                 ShowAction = false
                 
             };
@@ -33,7 +32,7 @@ namespace BabyTracker.Models.ViewModelFactories
             {
                 Growth = growth,
                 Infant = infant,
-                Action = "Edit",
+                ActionTheme = "text-white bg-yellow-500 hover:bg-yellow-600",
                 Theme = "warning",
             };
         }
@@ -46,7 +45,7 @@ namespace BabyTracker.Models.ViewModelFactories
                 Infant = infant,
                 Action = "Delete",
                 ReadOnly = true,
-                Theme = "danger",
+                ActionTheme = "text-white bg-red-600 hover:bg-red-700",
                 ShowAction = true
             };
         }

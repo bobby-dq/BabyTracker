@@ -1,41 +1,47 @@
 @model InfantViewModel
 
+<partial name="_Validation"/>
+
 <div class="container px-5 py-24 mx-auto flex">
     <div class="bg-green-50 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
-        <div class="text-red-700" asp-validation-summary="All"></div>
-        <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">Login</h2>
+        <div class="text-center">
+            <h2 class="-m-8 p-4 rounded-t-lg text-gray-900 bg-green-500 text-2xl mb-1 font-medium title-font" > @Model.Action: @Model.Infant.FirstName</h2>
+        </div>
         <form method="post">
-            <input type="hidden" name="returnUrl"  value="@Model.ReturnUrl"/>
             <div class="relative mb-4">
-                <label for="username" class="leading-7 text-sm text-gray-600">Username</label>
-                <input id="username" asp-for="UserName" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <div><span asp-validation-for="Infant.InfantId" class="text-red-600"></span></div>
+                <input type="hidden" asp-for="Infant.InfantId" readonly class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
             </div>
+
             <div class="relative mb-4">
-                <label for="password" class="leading-7 text-sm text-gray-600">Password</label>
-                <input id="password" type="password" asp-for="Password" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <div><span asp-validation-for="Infant.UserId" class="text-red-600"></span></div>
+                <input type="hidden" asp-for="Infant.UserId" readonly class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
             </div>
-            <button class="text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">Log In</button>
+
+            <div class="relative mb-4">
+                <label asp-for="Infant.FirstName" class="text-black"></label>
+                <div><span asp-validation-for="Infant.FirstName" class="text-red-600"></span></div>
+                <input asp-for="Infant.FirstName" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            </div>
+            <div class="-mb-8 -mx-8 text-center ">
+                @if (Model.ShowAction)
+                {
+                    <button class="text-white @Model.ActionTheme order-0 w-full py-2 px-6 focus:outline-none text-lg" type="submit">@Model.Action</button>
+                }            
+            </div>
         </form>
+        <a asp-action="Index" asp-controller="Dashboard" asp-route-id="@Model.Infant.InfantId">
+            <button class="text-white @Model.ActionTheme order-0 w-full py-2 px-6 focus:outline-none text-lg">Back</button>
+        </a>  
     </div>
 </div>
- 
-<partial name="_Validation"/>
+
+
 
 <h5 class="bg-@Model.Theme text-white text-center p-2" >@Model.Action</h5>
 
 <form asp-action="@Model.Action" method="post">
-    <div class="form-group">
-        <div>
-            <span asp-validation-for="Infant.InfantId" class="text-danger"></span>
-        </div>
-        <input type="hidden" class="form-control" asp-for="Infant.InfantId" readonly/>
-    </div>
-    <div class="form-group">
-        <div>
-            <span asp-validation-for="Infant.UserId" class="text-danger"></span>
-        </div>
-        <input type="hidden" class="form-control" asp-for="Infant.UserId" readonly/>
-    </div>
+
     <div class="form-group">
         <label asp-for="Infant.FirstName"></label>
         <div>
