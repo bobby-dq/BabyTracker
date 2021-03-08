@@ -10,7 +10,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Westwind.AspNetCore.LiveReload;
 using BabyTracker.Models;
 using BabyTracker.Models.ViewModels;
 using BabyTracker.Models.RepositoryModels;

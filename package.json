@@ -7,8 +7,8 @@
     "type": "git",
     "url": "git+https://github.com/bobby-dq/BabyTracker.git"
   },
-  "scripts":{
-    "css:build":"npx tailwind build ./wwwroot/css/site.css -o ./wwwroot/css/output.css"
+  "scripts": {
+    "css:build": "npx tailwind build ./wwwroot/css/site.css -o ./wwwroot/css/output.css"
   },
   "keywords": [],
   "author": "",
@@ -22,5 +22,8 @@
     "autoprefixer": "^9.8.6",
     "postcss": "^7.0.35",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3"
+  },
+  "dependencies": {
+    "mssql": "^6.3.1"
   }
 }
