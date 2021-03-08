@@ -48,22 +48,26 @@ namespace BabyTracker
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages().AddRazorRuntimeCompilation();
-            services.AddMvc().AddRazorRuntimeCompilation();
-            // services.AddScoped<IBabyTrackerRepository, EfBabyTrackerRepository>();
+            services.AddMvc().AddRazorRuntimeCompilation();;
         
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, BabyTrackerContext context)
         {
-            app.UseDeveloperExceptionPage();
+            if (env.IsProduction())
+            {
+                app.UseExceptionHandler("/Error/Error500");
+            }
+            else
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
+            }
             app.UseStaticFiles();
-            app.UseStatusCodePages();
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
