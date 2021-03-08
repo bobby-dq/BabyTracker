@@ -73,7 +73,8 @@ namespace BabyTracker
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            SeedData.SeedDatabase(context);
+            IdentitySeedData.CreateAdminAccount(app.ApplicationServices, Configuration);
+            SeedData.SeedDatabase(context, app.ApplicationServices);
         }
     }
 }

@@ -1,17 +1,27 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
 
 namespace BabyTracker.Models.RepositoryModels
 {
     public static class SeedData
     {
 
-        public static void SeedDatabase(BabyTrackerContext ctx)
+        public static void SeedDatabase(BabyTrackerContext ctx, IServiceProvider serviceProvider)
+        {
+            SeedDatabaseAsync(ctx, serviceProvider).Wait();
+        }
+
+        public static async Task SeedDatabaseAsync(BabyTrackerContext ctx, IServiceProvider serviceProvider)
             {
                 BabyTrackerContext context = ctx;
+                serviceProvider = serviceProvider.CreateScope().ServiceProvider;
+                UserManager<IdentityUser> userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+                IdentityUser adminUser = await userManager.FindByNameAsync("SeedAdmin");
 
                 if (context.Database.GetPendingMigrations().Any())
                 {
@@ -29,14 +39,14 @@ namespace BabyTracker.Models.RepositoryModels
                             FirstName="Migi",
                             LastName="Datul",
                             Dob = new DateTime(1999,1,1),
-                            UserId = "8dbd4857-81b2-4516-869d-3793c9f346c9"
+                            UserId = adminUser.Id
                         };
                     Infant immanuelSantaElena = new Infant
                         {
                             FirstName = "Immanuel",
                             LastName = "Santa Elena",
                             Dob = new DateTime(2000, 02, 20),
-                            UserId = "11b0c93c-e011-4596-ad68-a4e4708d16f7"
+                            UserId = adminUser.Id
                         };
 
                     context.Feedings.AddRange(

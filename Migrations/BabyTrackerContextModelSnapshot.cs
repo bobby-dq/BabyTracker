@@ -141,6 +141,7 @@ namespace BabyTracker.Migrations
                         .HasColumnType("nvarchar(32)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("InfantId");

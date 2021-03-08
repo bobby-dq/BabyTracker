@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BabyTracker.Migrations
 {
-    public partial class UpdatedBabyOwnersip : Migration
+    public partial class initial_BabyTrackerContext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace BabyTracker.Migrations
                 {
                     InfantId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
                     Dob = table.Column<DateTime>(type: "datetime2", nullable: false)

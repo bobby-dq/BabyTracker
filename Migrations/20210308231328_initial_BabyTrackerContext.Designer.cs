@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BabyTracker.Migrations
 {
     [DbContext(typeof(BabyTrackerContext))]
-    [Migration("20210302063502_UpdatedBabyOwnersip")]
-    partial class UpdatedBabyOwnersip
+    [Migration("20210308231328_initial_BabyTrackerContext")]
+    partial class initial_BabyTrackerContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -143,6 +143,7 @@ namespace BabyTracker.Migrations
                         .HasColumnType("nvarchar(32)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("InfantId");
