@@ -445,3 +445,6 @@ $RECYCLE.BIN/
 appsettings.Production.json
 Dockerfile
 docker-compose.yml
+
+
+*.arm.json
