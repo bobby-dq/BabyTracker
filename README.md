@@ -1,14 +1,30 @@
 # Welcome to the Baby Tracker App
-A web application that you can use to track your newborn's bowel, eating, and sleeping habits. You can visit the website [here](https://babytracker.azurewebsites.net/)!
-This web application utilizes the CRUD operations of Entity Framework Core, ASP.NET Core MVC, ASP.NET Core Razor Pages, Tailwind CSS, ASP.NET Identity, and MSSSQL Server.
+A web application that you can use to track your newborn's bowel, eating, and sleeping habits. You can visit the website [here](https://babytracker.azurewebsites.net/) and sign up for free!
+This web application utilizes the CRUD operations of Entity Framework Core, ASP.NET Core MVC, ASP.NET Core Razor Pages, Tailwind CSS, and MSSSQL Server. It also uses Identity's roles and users functionality for administration purposes.
 
-## Here are a few snapshots of the website.
-![Frontpage](https://github.com/bobby-dq/BabyTracker/blob/main/README%20Screenshots/Frontpage.JPG)
 ## Technologies Used
  - ASP.NET Core 5.0
  - Tailwind CSS
  - Azure SQL Server and Database
  - Azure App Service
+
+## Here are a few snapshots of the website.
+### Frontpage
+![Frontpage](https://github.com/bobby-dq/BabyTracker/blob/main/README%20Screenshots/Frontpage.JPG)
+### Infant List
+![Infant List](https://github.com/bobby-dq/BabyTracker/blob/main/README%20Screenshots/Infant%20%20Lists.JPG)
+### Infant Dashboard
+![Dashboard](https://github.com/bobby-dq/BabyTracker/blob/main/README%20Screenshots/dashboard.JPG)
+### Create
+![Create](https://github.com/bobby-dq/BabyTracker/blob/main/README%20Screenshots/Create.JPG)
+### Edit
+![Edit](https://github.com/bobby-dq/BabyTracker/blob/main/README%20Screenshots/Edit.JPG)
+### Delete
+![Delete](https://github.com/bobby-dq/BabyTracker/blob/main/README%20Screenshots/Delete.JPG)
+### Registration (its free!)
+![Register](https://github.com/bobby-dq/BabyTracker/blob/main/README%20Screenshots/Register%20pages.JPG)
+### Login 
+![Login](https://github.com/bobby-dq/BabyTracker/blob/main/README%20Screenshots/Login.JPG)
 
 ## News and Updates
     08-Mar-2021 "Published to azure. Visit the following link https://babytracker.azurewebsites.net/"
