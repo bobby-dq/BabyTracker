@@ -1,9 +1,9 @@
 # Welcome to the Baby Tracker App
 A web application that you can use to track your newborn's bowel, eating, and sleeping habits. You can visit the website [here](https://babytracker.azurewebsites.net/)!
-This web application utilizes the CRUD operations of Entity Framework Core, ASP.NET Core MVC, ASP.NET Core Razor Pages, Tailwind CSS, and MSSSQL Server.
+This web application utilizes the CRUD operations of Entity Framework Core, ASP.NET Core MVC, ASP.NET Core Razor Pages, Tailwind CSS, ASP.NET Identity, and MSSSQL Server.
 
 ## Here are a few snapshots of the website.
-![Frontpage](README Screenshots/Frontpage.JPG)
+![Frontpage](https://github.com/bobby-dq/BabyTracker/blob/main/README%20Screenshots/Frontpage.JPG)
 ## Technologies Used
  - ASP.NET Core 5.0
  - Tailwind CSS
